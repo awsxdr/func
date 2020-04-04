@@ -1,6 +1,13 @@
 # FunCSharp
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 FunCSharp (funk-sharp) is a library designed to expand C#'s functional programming capabilities.
+
+## Contents
+
+* [Usage](#usage)
+  * [Options](#options)
 
 ## Usage
 
