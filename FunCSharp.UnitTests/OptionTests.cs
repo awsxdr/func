@@ -2,9 +2,8 @@
 {
     using FluentAssertions;
     using NUnit.Framework;
-    using Option;
 
-    using static Option.Option;
+    using static Option;
 
     [TestFixture]
     public class OptionTests
