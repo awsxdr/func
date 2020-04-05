@@ -35,7 +35,7 @@ public class Example
     public void Test()
     {
         GetDescription(Some(11));    // "Huge"
-        GetDescription(Some(8));     // "Big"
+        GetDescription(Some(3));     // "Small"
         GetDescription(None<int>()); // "Empty"
     }
 }
