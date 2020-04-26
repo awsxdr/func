@@ -7,6 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="MapExtensionMethodsCurryTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MapExtensionMethodsCurryTests.tt</DependentUpon>
+    </None>
+    <None Include="TeeExtensionMethodsCurryTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TeeExtensionMethodsCurryTests.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="nunit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
@@ -18,6 +31,34 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FunCSharp\FunCSharp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="MapExtensionMethodsCurryTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MapExtensionMethodsCurryTests.cs</LastGenOutput>
+    </None>
+    <None Update="TeeExtensionMethodsCurryTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TeeExtensionMethodsCurryTests.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MapExtensionMethodsCurryTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MapExtensionMethodsCurryTests.tt</DependentUpon>
+    </Compile>
+    <Compile Update="TeeExtensionMethodsCurryTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TeeExtensionMethodsCurryTests.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

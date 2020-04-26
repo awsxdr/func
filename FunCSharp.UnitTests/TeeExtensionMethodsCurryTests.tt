@@ -1,0 +1,94 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<# const int CurryLimit = 15; #>
+namespace FunCSharp.UnitTests
+{
+    using FluentAssertions;
+    using NUnit.Framework;
+    using System.Threading.Tasks;
+
+    [TestFixture]
+    public partial class TeeExtensionMethodsTests
+    {
+<# for(var i = 2; i <= CurryLimit; ++i) { #>
+        [Test]
+        public void Tee_Curries_With<#= i #>Arguments()
+        {
+            var result = string.Empty;
+
+            void TestMethod(<# WriteArgumentsWithTypes(i); #>) =>
+                result = $"<# WriteArgumentsInInterpolatedString(i); #>";
+
+            <#= i #>.Tee(TestMethod, <# WriteArguments(i - 1); #>);
+
+            result.Should().Be("<# for(var j = 1; j <= i; ++j) { #><#= j #><# if(j < i) { #>, <#}}#>");
+        }
+
+        [Test]
+        public async Task Tee_CurriesFromTask_With<#= i #>Arguments()
+        {
+            var result = string.Empty;
+
+            void TestMethod(<# WriteArgumentsWithTypes(i); #>) =>
+                result = $"<# WriteArgumentsInInterpolatedString(i); #>";
+
+            await Task.FromResult(<#= i #>).Tee(TestMethod, <# WriteArguments(i - 1); #>);
+
+            result.Should().Be("<# for(var j = 1; j <= i; ++j) { #><#= j #><# if(j < i) { #>, <#}}#>");
+        }
+
+        [Test]
+        public async Task Tee_CurriesFromTaskWithTask_With<#= i #>Arguments()
+        {
+            var result = string.Empty;
+
+            Task TestMethod(<# WriteArgumentsWithTypes(i); #>)
+            {
+                result = $"<# WriteArgumentsInInterpolatedString(i); #>";
+                return Task.CompletedTask;
+            }
+
+            await Task.FromResult(<#= i #>).Tee(TestMethod, <# WriteArguments(i - 1); #>);
+
+            result.Should().Be("<# for(var j = 1; j <= i; ++j) { #><#= j #><# if(j < i) { #>, <#}}#>");
+        }
+
+        [Test]
+        public async Task Tee_CurriesWithTask_With<#= i #>Arguments()
+        {
+            var result = string.Empty;
+
+            Task TestMethod(<# WriteArgumentsWithTypes(i); #>)
+            {
+                result = $"<# WriteArgumentsInInterpolatedString(i); #>";
+                return Task.CompletedTask;
+            }
+
+            await <#= i #>.Tee(TestMethod, <# WriteArguments(i - 1); #>);
+
+            result.Should().Be("<# for(var j = 1; j <= i; ++j) { #><#= j #><# if(j < i) { #>, <#}}#>");
+        }
+
+<# } #>
+    }
+}
+<#+
+    void WriteArgumentsWithTypes(int count)
+    {
+        for(var i = 1; i <= count; ++i) { #>int argument<#= i #><#+ if(i < count) { #>, <#+ } }
+    }
+
+    void WriteArgumentsInInterpolatedString(int count)
+    {
+        for(var i = 1; i <= count; ++i) { #>{argument<#= i #>}<#+ if(i < count) { #>, <#+ } }
+    }
+
+    void WriteArguments(int count)
+    {
+        for(var i = 1; i <= count; ++i) { #><#= i #><#+ if(i < count) { #>, <#+ } }
+    }
+#>

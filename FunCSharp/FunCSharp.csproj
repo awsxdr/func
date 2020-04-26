@@ -13,4 +13,36 @@
     <PackageProjectUrl>https://github.com/awsxdr/funcsharp</PackageProjectUrl>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="MapExtensionMethods.tt~RF14e8acba.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TeeExtensionMethods.tt">
+      <LastGenOutput>TeeExtensionMethods.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="MapExtensionMethods.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MapExtensionMethods.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MapExtensionMethods.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MapExtensionMethods.tt</DependentUpon>
+    </Compile>
+    <Compile Update="TeeExtensionMethods.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TeeExtensionMethods.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
