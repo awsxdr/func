@@ -1,4 +1,4 @@
-﻿namespace FunCSharp.UnitTests
+﻿namespace Func.UnitTests
 {
     using System.Threading.Tasks;
     using FluentAssertions;

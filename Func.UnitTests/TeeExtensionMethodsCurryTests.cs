@@ -1,4 +1,11 @@
-﻿namespace FunCSharp.UnitTests
+﻿
+
+
+
+
+
+
+namespace Func.UnitTests
 {
     using FluentAssertions;
     using NUnit.Framework;
@@ -7,6 +14,7 @@
     [TestFixture]
     public partial class TeeExtensionMethodsTests
     {
+
         [Test]
         public void Tee_Curries_With2Arguments()
         {
@@ -64,6 +72,7 @@
 
             result.Should().Be("1, 2");
         }
+
 
         [Test]
         public void Tee_Curries_With3Arguments()
@@ -123,6 +132,7 @@
             result.Should().Be("1, 2, 3");
         }
 
+
         [Test]
         public void Tee_Curries_With4Arguments()
         {
@@ -180,6 +190,7 @@
 
             result.Should().Be("1, 2, 3, 4");
         }
+
 
         [Test]
         public void Tee_Curries_With5Arguments()
@@ -239,6 +250,7 @@
             result.Should().Be("1, 2, 3, 4, 5");
         }
 
+
         [Test]
         public void Tee_Curries_With6Arguments()
         {
@@ -296,6 +308,7 @@
 
             result.Should().Be("1, 2, 3, 4, 5, 6");
         }
+
 
         [Test]
         public void Tee_Curries_With7Arguments()
@@ -355,6 +368,7 @@
             result.Should().Be("1, 2, 3, 4, 5, 6, 7");
         }
 
+
         [Test]
         public void Tee_Curries_With8Arguments()
         {
@@ -412,6 +426,7 @@
 
             result.Should().Be("1, 2, 3, 4, 5, 6, 7, 8");
         }
+
 
         [Test]
         public void Tee_Curries_With9Arguments()
@@ -471,6 +486,7 @@
             result.Should().Be("1, 2, 3, 4, 5, 6, 7, 8, 9");
         }
 
+
         [Test]
         public void Tee_Curries_With10Arguments()
         {
@@ -528,6 +544,7 @@
 
             result.Should().Be("1, 2, 3, 4, 5, 6, 7, 8, 9, 10");
         }
+
 
         [Test]
         public void Tee_Curries_With11Arguments()
@@ -587,6 +604,7 @@
             result.Should().Be("1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11");
         }
 
+
         [Test]
         public void Tee_Curries_With12Arguments()
         {
@@ -644,6 +662,7 @@
 
             result.Should().Be("1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12");
         }
+
 
         [Test]
         public void Tee_Curries_With13Arguments()
@@ -703,6 +722,7 @@
             result.Should().Be("1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13");
         }
 
+
         [Test]
         public void Tee_Curries_With14Arguments()
         {
@@ -761,6 +781,7 @@
             result.Should().Be("1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14");
         }
 
+
         [Test]
         public void Tee_Curries_With15Arguments()
         {
@@ -818,6 +839,7 @@
 
             result.Should().Be("1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15");
         }
+
 
     }
 }

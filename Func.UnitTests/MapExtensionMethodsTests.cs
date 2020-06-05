@@ -1,4 +1,4 @@
-﻿namespace FunCSharp.UnitTests
+﻿namespace Func.UnitTests
 {
     using FluentAssertions;
     using NUnit.Framework;

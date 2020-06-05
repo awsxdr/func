@@ -18,6 +18,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="CurryExtensionMethods.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CurryExtensionMethods.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CurryExtensionMethods.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CurryExtensionMethods.cs</LastGenOutput>
+    </None>
     <None Update="TeeExtensionMethods.tt">
       <LastGenOutput>TeeExtensionMethods.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -33,6 +45,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="CurryExtensionMethods.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CurryExtensionMethods.tt</DependentUpon>
+    </Compile>
     <Compile Update="MapExtensionMethods.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

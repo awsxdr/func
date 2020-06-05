@@ -1,8 +1,8 @@
-# FunCSharp
+# Func
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/awsxdr/funcsharp/blob/master/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/awsxdr/Func/blob/master/LICENSE)
 
-FunCSharp (funk-sharp) is a library designed to expand C#'s functional programming capabilities.
+Func is a library designed to expand C#'s functional programming capabilities.
 
 ## Contents
 
@@ -24,7 +24,7 @@ _This section will be filled out as functionality is added to the library._
 `Tee` takes in a value, executes a given method, and returns the original value.
 
 ```csharp
-using FunCSharp;
+using Func;
 
 public class Example
 {
@@ -49,7 +49,7 @@ public class Example
 `Map` and `Tee` are designed to work happily with asynchronous functions returning `Task` objects. Methods returning tasks which are chained together will return a single unified task.
 
 ```csharp
-using FunCSharp;
+using Func;
 
 public class Example
 {
@@ -100,7 +100,7 @@ Full currying and partial application support is being worked on but is currentl
 Options represent a way of marking a value as optional. Optional items offer benefits over nullable items because they enforce checking for a value and thus remove the possibility of ending up with the dreaded `NullReferenceException`s.
 
 ```csharp
-using static FunCSharp.Option;
+using static Func.Option;
 
 public class Example
 {
@@ -130,7 +130,7 @@ The above example shows a function which expects either an integer or nothing. T
 Also supported is passing values when the type isn't specified. In the below example, any type can be passed in.
 
 ```csharp
-using static FunCSharp.Option;
+using static Func.Option;
 
 public class Example
 {
@@ -158,12 +158,12 @@ public class Example
 
 ### Railway-oriented programming (Result)
 
-FunCSharp supports railway-oriented programming (ROP). Functions which return a `Result` object can be chained together with calls to `Then`. If any method in the chain fails then the chain stops executing and a fail is returned. The concept is similar to Javascript's promises.
+Func supports railway-oriented programming (ROP). Functions which return a `Result` object can be chained together with calls to `Then`. If any method in the chain fails then the chain stops executing and a fail is returned. The concept is similar to Javascript's promises.
 
 The aim of ROP is to prevent the use of exceptions for program flow. Methods can fail on non-exceptional errors to avoid continuing without the overhead of throwing an exception.
 
 ```csharp
-using static FunCSharp.Result;
+using static Func.Result;
 
 
 

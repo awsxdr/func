@@ -1,4 +1,4 @@
-﻿namespace FunCSharp
+﻿namespace Func
 {
     public interface Option
     {

@@ -5,7 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 <# const int CurryLimit = 15; #>
-namespace FunCSharp.UnitTests
+namespace Func.UnitTests
 {
     using FluentAssertions;
     using NUnit.Framework;
@@ -18,7 +18,7 @@ namespace FunCSharp.UnitTests
         [Test]
         public void Map_Curries_With<#= i #>Arguments()
         {
-            string TestMethod(<# WriteArgumentsWithTypes(i); #>) =>
+            static string TestMethod(<# WriteArgumentsWithTypes(i); #>) =>
                 $"<# WriteArgumentsInInterpolatedString(i); #>";
 
             var result = <#= i #>.Map(TestMethod, <# WriteArguments(i - 1); #>);
@@ -29,7 +29,7 @@ namespace FunCSharp.UnitTests
         [Test]
         public async Task Map_CurriesFromTask_With<#= i #>Arguments()
         {
-            string TestMethod(<# WriteArgumentsWithTypes(i); #>) =>
+            static string TestMethod(<# WriteArgumentsWithTypes(i); #>) =>
                 $"<# WriteArgumentsInInterpolatedString(i); #>";
 
             var result = await Task.FromResult(<#= i #>).Map(TestMethod, <# WriteArguments(i - 1); #>);
@@ -40,7 +40,7 @@ namespace FunCSharp.UnitTests
         [Test]
         public async Task Map_CurriesFromTaskWithTask_With<#= i #>Arguments()
         {
-            Task<string> TestMethod(<# WriteArgumentsWithTypes(i); #>) =>
+            static Task<string> TestMethod(<# WriteArgumentsWithTypes(i); #>) =>
                 Task.FromResult($"<# WriteArgumentsInInterpolatedString(i); #>");
 
             var result = await Task.FromResult(<#= i #>).Map(TestMethod, <# WriteArguments(i - 1); #>);

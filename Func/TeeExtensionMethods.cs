@@ -1,10 +1,18 @@
-﻿namespace FunCSharp
+﻿
+
+
+
+
+
+
+namespace Func
 {
 	using System;
 	using System.Threading.Tasks;
 	
 	public static class TeeExtensionMethods
 	{
+
 		public static Task<TValue1> Tee<TValue1>(this Task<TValue1> valueTask, Func<TValue1, Task> func) =>
 			valueTask.ContinueWith(async value1 =>
 			{
@@ -56,6 +64,7 @@
 			func(value1);
 			return value1;
 		}
+
 
 		public static Task<TValue2> Tee<TValue1, TValue2>(this Task<TValue2> valueTask, Func<TValue1, TValue2, Task> func, TValue1 value1) =>
 			valueTask.ContinueWith(async value2 =>
@@ -109,6 +118,7 @@
 			return value2;
 		}
 
+
 		public static Task<TValue3> Tee<TValue1, TValue2, TValue3>(this Task<TValue3> valueTask, Func<TValue1, TValue2, TValue3, Task> func, TValue1 value1, TValue2 value2) =>
 			valueTask.ContinueWith(async value3 =>
 			{
@@ -160,6 +170,7 @@
 			func(value1, value2, value3);
 			return value3;
 		}
+
 
 		public static Task<TValue4> Tee<TValue1, TValue2, TValue3, TValue4>(this Task<TValue4> valueTask, Func<TValue1, TValue2, TValue3, TValue4, Task> func, TValue1 value1, TValue2 value2, TValue3 value3) =>
 			valueTask.ContinueWith(async value4 =>
@@ -213,6 +224,7 @@
 			return value4;
 		}
 
+
 		public static Task<TValue5> Tee<TValue1, TValue2, TValue3, TValue4, TValue5>(this Task<TValue5> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4) =>
 			valueTask.ContinueWith(async value5 =>
 			{
@@ -264,6 +276,7 @@
 			func(value1, value2, value3, value4, value5);
 			return value5;
 		}
+
 
 		public static Task<TValue6> Tee<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(this Task<TValue6> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4, TValue5 value5) =>
 			valueTask.ContinueWith(async value6 =>
@@ -317,6 +330,7 @@
 			return value6;
 		}
 
+
 		public static Task<TValue7> Tee<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(this Task<TValue7> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4, TValue5 value5, TValue6 value6) =>
 			valueTask.ContinueWith(async value7 =>
 			{
@@ -368,6 +382,7 @@
 			func(value1, value2, value3, value4, value5, value6, value7);
 			return value7;
 		}
+
 
 		public static Task<TValue8> Tee<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(this Task<TValue8> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4, TValue5 value5, TValue6 value6, TValue7 value7) =>
 			valueTask.ContinueWith(async value8 =>
@@ -421,6 +436,7 @@
 			return value8;
 		}
 
+
 		public static Task<TValue9> Tee<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(this Task<TValue9> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4, TValue5 value5, TValue6 value6, TValue7 value7, TValue8 value8) =>
 			valueTask.ContinueWith(async value9 =>
 			{
@@ -472,6 +488,7 @@
 			func(value1, value2, value3, value4, value5, value6, value7, value8, value9);
 			return value9;
 		}
+
 
 		public static Task<TValue10> Tee<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10>(this Task<TValue10> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4, TValue5 value5, TValue6 value6, TValue7 value7, TValue8 value8, TValue9 value9) =>
 			valueTask.ContinueWith(async value10 =>
@@ -525,6 +542,7 @@
 			return value10;
 		}
 
+
 		public static Task<TValue11> Tee<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11>(this Task<TValue11> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4, TValue5 value5, TValue6 value6, TValue7 value7, TValue8 value8, TValue9 value9, TValue10 value10) =>
 			valueTask.ContinueWith(async value11 =>
 			{
@@ -576,6 +594,7 @@
 			func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11);
 			return value11;
 		}
+
 
 		public static Task<TValue12> Tee<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12>(this Task<TValue12> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4, TValue5 value5, TValue6 value6, TValue7 value7, TValue8 value8, TValue9 value9, TValue10 value10, TValue11 value11) =>
 			valueTask.ContinueWith(async value12 =>
@@ -629,6 +648,7 @@
 			return value12;
 		}
 
+
 		public static Task<TValue13> Tee<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13>(this Task<TValue13> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4, TValue5 value5, TValue6 value6, TValue7 value7, TValue8 value8, TValue9 value9, TValue10 value10, TValue11 value11, TValue12 value12) =>
 			valueTask.ContinueWith(async value13 =>
 			{
@@ -680,6 +700,7 @@
 			func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13);
 			return value13;
 		}
+
 
 		public static Task<TValue14> Tee<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14>(this Task<TValue14> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4, TValue5 value5, TValue6 value6, TValue7 value7, TValue8 value8, TValue9 value9, TValue10 value10, TValue11 value11, TValue12 value12, TValue13 value13) =>
 			valueTask.ContinueWith(async value14 =>
@@ -733,6 +754,7 @@
 			return value14;
 		}
 
+
 		public static Task<TValue15> Tee<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14, TValue15>(this Task<TValue15> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14, TValue15, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4, TValue5 value5, TValue6 value6, TValue7 value7, TValue8 value8, TValue9 value9, TValue10 value10, TValue11 value11, TValue12 value12, TValue13 value13, TValue14 value14) =>
 			valueTask.ContinueWith(async value15 =>
 			{
@@ -784,6 +806,7 @@
 			func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14, value15);
 			return value15;
 		}
+
 
 	}
 }

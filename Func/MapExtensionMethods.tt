@@ -5,7 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 <# const int ArgumentLimit = 15; #>
-namespace FunCSharp
+namespace Func
 {
 	using System;
 	using System.Threading.Tasks;

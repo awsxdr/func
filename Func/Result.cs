@@ -1,5 +1,6 @@
-﻿#pragma warning disable IDE1006 // Naming Styles
-namespace FunCSharp
+﻿// ReSharper disable InconsistentNaming
+#pragma warning disable IDE1006 // Naming Styles
+namespace Func
 {
     using System;
 
@@ -18,7 +19,7 @@ namespace FunCSharp
         Result<TValue> Then<TValue>(Func<Result<TValue>> resultFunc);
     }
 
-    public partial interface Result<TValue> : Result
+    public partial interface Result<out TValue> : Result
     {
         public new static Result<TValue> Fail<TError>(TError error) where TError : ResultError =>
             new FailureClass<TValue, TError>(error);
