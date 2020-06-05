@@ -1,4 +1,5 @@
-﻿namespace FunCSharp
+﻿#pragma warning disable IDE1006 // Naming Styles
+namespace FunCSharp
 {
     using System;
 
@@ -17,7 +18,7 @@
         Result<TValue> Then<TValue>(Func<Result<TValue>> resultFunc);
     }
 
-    public interface Result<TValue> : Result
+    public partial interface Result<TValue> : Result
     {
         public new static Result<TValue> Fail<TError>(TError error) where TError : ResultError =>
             new FailureClass<TValue, TError>(error);
@@ -75,3 +76,4 @@
             new FailureClass<TResultValue, TError>(Error);
     }
 }
+#pragma warning restore IDE1006 // Naming Styles

@@ -155,3 +155,16 @@ public class Example
     }
 }
 ```
+
+### Railway-oriented programming (Result)
+
+FunCSharp supports railway-oriented programming (ROP). Functions which return a `Result` object can be chained together with calls to `Then`. If any method in the chain fails then the chain stops executing and a fail is returned. The concept is similar to Javascript's promises.
+
+The aim of ROP is to prevent the use of exceptions for program flow. Methods can fail on non-exceptional errors to avoid continuing without the overhead of throwing an exception.
+
+```csharp
+using static FunCSharp.Result;
+
+
+
+```
