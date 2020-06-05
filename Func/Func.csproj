@@ -8,9 +8,9 @@
     <FileVersion>0.0.1.0</FileVersion>
     <Authors>Daniel Errington</Authors>
     <Version>0.0.1</Version>
-    <RepositoryUrl>https://github.com/awsxdr/funcsharp</RepositoryUrl>
+    <RepositoryUrl>https://github.com/awsxdr/func</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/awsxdr/funcsharp</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/awsxdr/func</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FunCSharp\FunCSharp.csproj" />
+    <ProjectReference Include="..\Func\Func.csproj" />
   </ItemGroup>
 
   <ItemGroup>
