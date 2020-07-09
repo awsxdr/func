@@ -163,8 +163,41 @@ Func supports railway-oriented programming (ROP). Functions which return a `Resu
 The aim of ROP is to prevent the use of exceptions for program flow. Methods can fail on non-exceptional errors to avoid continuing without the overhead of throwing an exception.
 
 ```csharp
+using System;
+using System.Threading.Tasks;
 using static Func.Result;
 
+public class Example
+{
+    public async Task RunTests()
+    {
+        await Test("test"); // Outputs "Hello, Test Testington, you are 123 years old"
+        await Test("invalid"); // Outputs "User couldn't be found!"
+    }
 
+    private async Task Test(string username)
+    {
+        Console.WriteLine((await
+                username
+                    .Map(GetUserDetails).Then((Func<Result<string>>)FormatMessage)
+                    .Then(FormatMessage))
+            switch
+            {
+                Success<string> s => s.Value,
+                Failure<UserNotFoundError> _ => "User couldn't be found!"
+            });
+    }
 
+    private Task<Result<(string Name, int Age)>> GetUserDetails(string username) =>
+        // Imagine going off to a server or database here...
+        (username == "test"
+            ? Succeed(("Test Testington", 123))
+            : Result<(string, int)>.Fail(new UserNotFoundError()))
+        .ToTask();
+
+    private Result<string> FormatMessage((string Name, int Age) user) =>
+        Succeed($"Hello, {user.Name}, you are {user.Age} years old");
+}
+
+public class UserNotFoundError : ResultError { }
 ```
