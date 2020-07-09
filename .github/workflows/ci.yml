@@ -1,4 +1,4 @@
-name: .NET Core
+name: CI
 
 on:
   push:
@@ -29,12 +29,12 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.gitversion.outputs.NuGetVersionV2 }}
+      run: dotnet build --configuration Release --no-restore /p:Version=${{ steps.gitversion.outputs.MajorMinorPatch }} /p:VersionSuffix=${{ steps.gitversion.outputs.PreReleaseTagWithDash }}
     - name: Test
       run: dotnet test --no-restore --verbosity normal
     - name: Persist artifacts
       uses: actions/upload-artifact@v1
       with:
         name: func.nupkg
-        path: Func/bin/Release/Func.${{ steps.gitversion.outputs.NuGetVersionV2 }}.nupkg
+        path: Func/bin/Release/netstandard2.1/Func.AspNetCore.dll
         
