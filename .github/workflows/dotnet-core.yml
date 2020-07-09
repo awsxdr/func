@@ -27,5 +27,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: func.nupkg
-        path: bin/Release/Func.0.0.1.nupkg
+        path: func/bin/Release/Func.0.0.1.nupkg
         
