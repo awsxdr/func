@@ -40,7 +40,15 @@
         }
 
         [Test]
-        public async Task Tee_WithTask_ReturnsTask()
+        public async Task Tee_WithTaskAction_ReturnsTask()
+        {
+            var result = await Task.FromResult(123).Tee<int>(_ => Task.CompletedTask);
+
+            result.Should().Be(123);
+        }
+
+        [Test]
+        public async Task Tee_WithTaskFunc_ReturnsTask()
         {
             var result = await Task.FromResult(123).Tee(x => Task.FromResult(444 - x));
 
@@ -48,9 +56,33 @@
         }
 
         [Test]
-        public async Task Tee_WithTaskInput_ReturnsTask()
+        public async Task Tee_WithTaskInput_ReturnsTaskFromAction()
+        {
+            var result = await Task.FromResult(123).Tee<int>(_ => { });
+
+            result.Should().Be(123);
+        }
+
+        [Test]
+        public async Task Tee_WithTaskInput_ReturnsTaskFromFunc()
         {
             var result = await Task.FromResult(123).Tee(x => 444 - x);
+
+            result.Should().Be(123);
+        }
+
+        [Test]
+        public async Task Tee_WithNonTaskInput_ReturnsTaskFromAction()
+        {
+            var result = await 123.Tee(_ => Task.CompletedTask);
+
+            result.Should().Be(123);
+        }
+
+        [Test]
+        public async Task Tee_WithNonTaskInput_ReturnsTaskFromFunc()
+        {
+            var result = await 123.Tee(x => (444 - x).ToTask());
 
             result.Should().Be(123);
         }

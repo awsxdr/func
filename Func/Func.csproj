@@ -11,6 +11,7 @@
     <RepositoryUrl>https://github.com/awsxdr/func</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/awsxdr/func</PackageProjectUrl>
+    <Company />
   </PropertyGroup>
 
   <ItemGroup>
