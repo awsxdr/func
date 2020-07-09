@@ -12,6 +12,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/awsxdr/func</PackageProjectUrl>
     <Company />
+    <Description>A library designed to expand C#'s functional programming capabilities including railway-oriented programming</Description>
   </PropertyGroup>
 
   <ItemGroup>
