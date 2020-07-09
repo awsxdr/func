@@ -140,6 +140,12 @@ namespace Func
         public static Task<Result> Then<TIn>(this Task<Result<TIn>> @this, Func<Result> resultFunc) =>
             @this.ContinueWith(x => x.Result.Then(resultFunc));
 
+        public static Task<Result> Then<TIn>(this Task<Result<TIn>> @this, Func<TIn, Task<Result>> resultFunc) =>
+            @this.ContinueWith(x => x.Result.Then(resultFunc)).Unwrap();
+
+        public static Task<Result> Then<TIn>(this Task<Result<TIn>> @this, Func<TIn, Result> resultFunc) =>
+            @this.ContinueWith(x => x.Result.Then(resultFunc));
+
         public static Task<Result<TOut>> Then<TOut>(this Task<Result> @this, Func<Task<Result<TOut>>> resultFunc) =>
             @this.ContinueWith(x => x.Result.Then(resultFunc)).Unwrap();
 
@@ -150,6 +156,12 @@ namespace Func
             @this.ContinueWith(x => x.Result.Then(resultFunc)).Unwrap();
 
         public static Task<Result<TOut>> Then<TIn, TOut>(this Task<Result<TIn>> @this, Func<Result<TOut>> resultFunc) =>
+            @this.ContinueWith(x => x.Result.Then(resultFunc));
+
+        public static Task<Result<TOut>> Then<TIn, TOut>(this Task<Result<TIn>> @this, Func<TIn, Task<Result<TOut>>> resultFunc) =>
+            @this.ContinueWith(x => x.Result.Then(resultFunc)).Unwrap();
+
+        public static Task<Result<TOut>> Then<TIn, TOut>(this Task<Result<TIn>> @this, Func<TIn, Result<TOut>> resultFunc) =>
             @this.ContinueWith(x => x.Result.Then(resultFunc));
     }
 
