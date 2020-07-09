@@ -171,16 +171,17 @@ public class Example
 {
     public async Task RunTests()
     {
-        await Test("test"); // Outputs "Hello, Test Testington, you are 123 years old"
-        await Test("invalid"); // Outputs "User couldn't be found!"
+        await Test("test");     // Outputs "Hello, Test Testington, you are 123 years old"
+        await Test("invalid");  // Outputs "User couldn't be found!"
     }
 
     private async Task Test(string username)
     {
-        Console.WriteLine(await
+        Console.WriteLine(
+            await
                 username
-                    .Map(GetUserDetails)
-                    .Then<(string, int), string>(FormatMessage)
+                .Map(GetUserDetails)
+                .Then(FormatMessage)
             switch
             {
                 Success<string> s => s.Value,
