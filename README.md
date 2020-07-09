@@ -177,10 +177,10 @@ public class Example
 
     private async Task Test(string username)
     {
-        Console.WriteLine((await
+        Console.WriteLine(await
                 username
-                    .Map(GetUserDetails).Then((Func<Result<string>>)FormatMessage)
-                    .Then(FormatMessage))
+                    .Map(GetUserDetails)
+                    .Then<(string, int), string>(FormatMessage)
             switch
             {
                 Success<string> s => s.Value,
