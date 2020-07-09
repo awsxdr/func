@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ develop ]
 
 jobs:
   build:
@@ -36,5 +36,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: func.nupkg
-        path: Func/bin/Release/netstandard2.1/Func.AspNetCore.dll
+        path: Func/bin/Release/netstandard2.1/Func.dll
         
