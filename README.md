@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/awsxdr/Func/blob/master/LICENSE)
 ![Release](https://github.com/awsxdr/func/workflows/Release/badge.svg)
 ![CI](https://github.com/awsxdr/func/workflows/CI/badge.svg?branch=develop)
-![NuGet](https://img.shields.io/nuget/dt/Func)
+
 Func is a library designed to expand C#'s functional programming capabilities.
 
 ## Contents
