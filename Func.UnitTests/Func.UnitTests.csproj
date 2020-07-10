@@ -34,6 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="CurryingTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CurryingTests.cs</LastGenOutput>
+    </None>
     <None Update="MapExtensionMethodsCurryTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapExtensionMethodsCurryTests.cs</LastGenOutput>
@@ -49,6 +53,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="CurryingTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CurryingTests.tt</DependentUpon>
+    </Compile>
     <Compile Update="MapExtensionMethodsCurryTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
