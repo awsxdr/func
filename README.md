@@ -171,23 +171,21 @@ public class Example
 {
     public async Task RunTests()
     {
-        await Test("test");     // Outputs "Hello, Test Testington, you are 123 years old"
-        await Test("invalid");  // Outputs "User couldn't be found!"
+        await Test("test");     // "Hello, Test Testington, you are 123 years old"
+        await Test("invalid");  // "User couldn't be found!"
     }
 
-    private async Task Test(string username)
-    {
-        Console.WriteLine(
-            await
-                username
-                .Map(GetUserDetails)
-                .Then(FormatMessage)
-            switch
-            {
-                Success<string> s => s.Value,
-                Failure<UserNotFoundError> _ => "User couldn't be found!"
-            });
-    }
+    private async Task Test(string username) =>
+        await
+            username
+            .Map(GetUserDetails)
+            .Then(FormatMessage)
+        switch
+        {
+            Success<string> s => s.Value,
+            Failure<UserNotFoundError> _ => "User couldn't be found!",
+            Failure _ => "Something unexpected happened!"
+        });
 
     private Task<Result<(string Name, int Age)>> GetUserDetails(string username) =>
         // Imagine going off to a server or database here...
@@ -202,3 +200,5 @@ public class Example
 
 public class UserNotFoundError : ResultError { }
 ```
+
+Note here that the call to `Fail` requires the result types to be passed. This is because the types can't be inferred.
