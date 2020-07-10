@@ -328,6 +328,254 @@
             ((result as Failure<TestError>)?.Error.Message ?? "").Should().Be("This is a test");
         }
 
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnSuccess_WithAction_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var executed = false;
+            TestMethod(shouldSucceed)().OnSuccess(() => executed = true);
+
+            executed.Should().Be(shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnSuccess_WithAsyncFunc_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var executed = false;
+            await TestMethod(shouldSucceed)().OnSuccess(() => (executed = true).ToTask());
+
+            executed.Should().Be(shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnSuccess_WithValueAction_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var passedValue = default(int);
+
+            (shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError())).OnSuccess(x => passedValue = x);
+
+            passedValue.Should().Be(shouldSucceed ? 123 : default);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnSuccess_WithValueAsyncFunc_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var passedValue = default(int);
+
+            await (shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError())).OnSuccess(x => (passedValue = x).ToTask());
+
+            passedValue.Should().Be(shouldSucceed ? 123 : default);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnSuccess_AsyncWithAction_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var executed = false;
+            await AsyncTestMethod(shouldSucceed)().OnSuccess(() => executed = true);
+
+            executed.Should().Be(shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnSuccess_AsyncWithAsyncFunc_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var executed = false;
+            await AsyncTestMethod(shouldSucceed)().OnSuccess(() => (executed = true).ToTask());
+
+            executed.Should().Be(shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnSuccess_AsyncWithValueAction_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var passedValue = default(int);
+
+            await (shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError())).ToTask().OnSuccess(x => passedValue = x);
+
+            passedValue.Should().Be(shouldSucceed ? 123 : default);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnSuccess_AsyncWithValueAsyncFunc_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var passedValue = default(int);
+
+            await (shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError())).ToTask().OnSuccess(x => (passedValue = x).ToTask());
+
+            passedValue.Should().Be(shouldSucceed ? 123 : default);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnSuccess_OnValueResult_WithAction_PreservesValue(bool shouldSucceed)
+        {
+            var expectedResult = shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError());
+            var result = expectedResult.OnSuccess(() => { });
+
+            result.Should().Be(expectedResult);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnSuccess_OnValueResult_WithAsyncFunc_PreservesValue(bool shouldSucceed)
+        {
+            var expectedResult = shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError());
+            var result = await expectedResult.OnSuccess(() => Task.CompletedTask);
+
+            result.Should().Be(expectedResult);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnSuccess_OnAsyncValueResult_WithAction_PreservesValue(bool shouldSucceed)
+        {
+            var expectedResult = shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError());
+            var result = await expectedResult.ToTask().OnSuccess(() => { });
+
+            result.Should().Be(expectedResult);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnSuccess_OnAsyncValueResult_WithAsyncFunc_PreservesValue(bool shouldSucceed)
+        {
+            var expectedResult = shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError());
+            var result = await expectedResult.OnSuccess(() => Task.CompletedTask);
+
+            result.Should().Be(expectedResult);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnError_WithAction_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var executed = false;
+            TestMethod(shouldSucceed)().OnError(() => executed = true);
+
+            executed.Should().Be(!shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnError_WithAsyncFunc_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var executed = false;
+            await TestMethod(shouldSucceed)().OnError(() => (executed = true).ToTask());
+
+            executed.Should().Be(!shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnError_WithValueAction_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var passedValue = default(TestError);
+
+            (shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError())).OnError<TestError>(x => passedValue = x);
+
+            (passedValue == null).Should().Be(shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnError_WithValueAsyncFunc_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var passedValue = default(TestError);
+
+            await (shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError())).OnError<TestError>(x => (passedValue = x).ToTask());
+
+            (passedValue == null).Should().Be(shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnError_AsyncWithAction_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var executed = false;
+            await AsyncTestMethod(shouldSucceed)().OnError(() => executed = true);
+
+            executed.Should().Be(!shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnError_AsyncWithAsyncFunc_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var executed = false;
+            await AsyncTestMethod(shouldSucceed)().OnError(() => (executed = true).ToTask());
+
+            executed.Should().Be(!shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnError_AsyncWithValueAction_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var passedValue = default(TestError);
+
+            await (shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError())).ToTask().OnError<TestError, int>(x => passedValue = x);
+
+            (passedValue == null).Should().Be(shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnError_AsyncWithValueAsyncFunc_ExecutesMethodWhenExpectedTo(bool shouldSucceed)
+        {
+            var passedValue = default(TestError);
+
+            await (shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError())).ToTask().OnError<TestError, int>(x => (passedValue = x).ToTask());
+
+            (passedValue == null).Should().Be(shouldSucceed);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnError_OnValueResult_WithAction_PreservesValue(bool shouldSucceed)
+        {
+            var expectedResult = shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError());
+            var result = expectedResult.OnError(() => { });
+
+            result.Should().Be(expectedResult);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnError_OnValueResult_WithAsyncFunc_PreservesValue(bool shouldSucceed)
+        {
+            var expectedResult = shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError());
+            var result = await expectedResult.OnError(() => Task.CompletedTask);
+
+            result.Should().Be(expectedResult);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnError_OnAsyncValueResult_WithAction_PreservesValue(bool shouldSucceed)
+        {
+            var expectedResult = shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError());
+            var result = await expectedResult.ToTask().OnError(() => { });
+
+            result.Should().Be(expectedResult);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public async Task OnError_OnAsyncValueResult_WithAsyncFunc_PreservesValue(bool shouldSucceed)
+        {
+            var expectedResult = shouldSucceed ? Succeed(123) : Result<int>.Fail(new TestError());
+            var result = await expectedResult.OnError(() => Task.CompletedTask);
+
+            result.Should().Be(expectedResult);
+        }
+
         private static Func<Result> TestMethod(bool shouldSucceed) => () =>
             shouldSucceed
             ? Succeed()

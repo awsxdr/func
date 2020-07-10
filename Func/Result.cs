@@ -72,16 +72,9 @@ namespace Func
         Task<Result> Then(Func<Task<Result>> resultFunc);
         Result<TResultValue> Then<TResultValue>(Func<Result<TResultValue>> resultFunc);
         Task<Result<TResultValue>> Then<TResultValue>(Func<Task<Result<TResultValue>>> resultFunc);
-
-        Result OnSuccess(Action func);
-        public Result OnError<TError>(Action<TError> func) where TError : ResultError
-        {
-            if (this is Failure<TError> f) func(f.Error);
-            return this;
-        }
     }
 
-    public partial interface Result<out TValue> : Result
+    public interface Result<TValue> : Result
     {
         public new static Result<TValue> Fail<TError>(TError error) where TError : ResultError =>
             new FailureClass<TValue, TError>(error);
@@ -90,15 +83,13 @@ namespace Func
         Result Then(Func<TValue, Result> resultFunc);
         Task<Result<TResultValue>> Then<TResultValue>(Func<TValue, Task<Result<TResultValue>>> resultFunc);
         Result<TResultValue> Then<TResultValue>(Func<TValue, Result<TResultValue>> resultFunc);
-
-        Result<TValue> OnSuccess(Action<TValue> func);
     }
 
     public interface Success : Result
     {
     }
 
-    public interface Success<out TValue> : Result<TValue>, Success
+    public interface Success<TValue> : Result<TValue>, Success
     {
         TValue Value { get; }
     }
@@ -118,11 +109,97 @@ namespace Func
         public Task<Result> Then(Func<Task<Result>> resultFunc) => resultFunc();
         public Result<TResultValue> Then<TResultValue>(Func<Result<TResultValue>> resultFunc) => resultFunc();
         public Task<Result<TResultValue>> Then<TResultValue>(Func<Task<Result<TResultValue>>> resultFunc) => resultFunc();
+    }
 
-        public Result OnSuccess(Action func)
+    public static class ResultExtensionMethods
+    {
+        public static Result OnSuccess(this Result @this, Action func)
         {
-            func();
-            return this;
+            if(@this is Success) func();
+            return @this;
+        }
+
+        public static async Task<Result> OnSuccess(this Result @this, Func<Task> func)
+        {
+            if(@this is Success) await func();
+            return @this;
+        }
+
+        public static Result OnError(this Result @this, Action func)
+        {
+            if (@this is Failure) func();
+            return @this;
+        }
+
+        public static async Task<Result> OnError(this Result @this, Func<Task> func)
+        {
+            if (@this is Failure) await func();
+            return @this;
+        }
+
+        public static Result OnError<TError>(this Result @this, Action<TError> func) where TError : ResultError
+        {
+            if (@this is Failure<TError> f) func(f.Error);
+            return @this;
+        }
+
+        public static async Task<Result> OnError<TError>(this Result @this, Func<TError, Task> func) where TError : ResultError
+        {
+            if (@this is Failure<TError> f) await func(f.Error);
+            return @this;
+        }
+    }
+
+    public static class ValueResultExtensionMethods
+    {
+        public static Result<TResultValue> OnSuccess<TResultValue>(this Result<TResultValue> @this, Action func)
+        {
+            if (@this is Success) func();
+            return @this;
+        }
+
+        public static async Task<Result<TResultValue>> OnSuccess<TResultValue>(this Result<TResultValue> @this, Func<Task> func)
+        {
+            if (@this is Success) await func();
+            return @this;
+        }
+
+        public static Result<TResultValue> OnSuccess<TResultValue>(this Result<TResultValue> @this, Action<TResultValue> func)
+        {
+            if(@this is Success<TResultValue> s) func(s.Value);
+            return @this;
+        }
+
+        public static async Task<Result<TResultValue>> OnSuccess<TResultValue>(this Result<TResultValue> @this, Func<TResultValue, Task> func)
+        {
+            if(@this is Success<TResultValue> s) await func(s.Value);
+            return @this;
+        }
+
+        public static Result<TResultValue> OnError<TResultValue>(this Result<TResultValue> @this, Action func)
+        {
+            if (@this is Failure) func();
+            return @this;
+        }
+
+        public static async Task<Result<TResultValue>> OnError<TResultValue>(this Result<TResultValue> @this, Func<Task> func)
+        {
+            if (@this is Failure) await func();
+            return @this;
+        }
+
+        public static Result<TResultValue> OnError<TError, TResultValue>(this Result<TResultValue> @this, Action<TError> func) 
+            where TError : ResultError
+        {
+            if (@this is Failure<TError> f) func(f.Error);
+            return @this;
+        }
+
+        public static async Task<Result<TResultValue>> OnError<TError, TResultValue>(this Result<TResultValue> @this, Func<TError, Task> func) 
+            where TError : ResultError
+        {
+            if (@this is Failure<TError> f) await func(f.Error);
+            return @this;
         }
     }
 
@@ -163,6 +240,52 @@ namespace Func
 
         public static Task<Result<TOut>> Then<TIn, TOut>(this Task<Result<TIn>> @this, Func<TIn, Result<TOut>> resultFunc) =>
             @this.ContinueWith(x => x.Result.Then(resultFunc));
+
+        public static Task<Result> OnSuccess(this Task<Result> @this, Action func) =>
+            @this.ContinueWith(x => x.Result.OnSuccess(func));
+
+        public static Task<Result> OnSuccess(this Task<Result> @this, Func<Task> func) =>
+            @this.ContinueWith(x => x.Result.OnSuccess(func)).Unwrap();
+
+        public static Task<Result<TResultValue>> OnSuccess<TResultValue>(this Task<Result<TResultValue>> @this, Action func) =>
+            @this.ContinueWith(x => x.Result.OnSuccess(func));
+
+        public static Task<Result<TResultValue>> OnSuccess<TResultValue>(this Task<Result<TResultValue>> @this, Func<Task> func) =>
+            @this.ContinueWith(x => x.Result.OnSuccess(func)).Unwrap();
+
+        public static Task<Result<TResultValue>> OnSuccess<TResultValue>(this Task<Result<TResultValue>> @this, Action<TResultValue> func) =>
+            @this.ContinueWith(x => x.Result.OnSuccess(func));
+
+        public static Task<Result<TResultValue>> OnSuccess<TResultValue>(this Task<Result<TResultValue>> @this, Func<TResultValue, Task> func) =>
+            @this.ContinueWith(x => x.Result.OnSuccess(func)).Unwrap();
+
+        public static Task<Result> OnError(this Task<Result> @this, Action func) =>
+            @this.ContinueWith(x => x.Result.OnError(func));
+
+        public static Task<Result> OnError(this Task<Result> @this, Func<Task> func) =>
+            @this.ContinueWith(x => x.Result.OnError(func)).Unwrap();
+
+        public static Task<Result> OnError<TError>(this Task<Result> @this, Action<TError> func)
+            where TError : ResultError =>
+            @this.ContinueWith(x => x.Result.OnError(func));
+
+        public static Task<Result> OnError<TError>(this Task<Result> @this, Func<TError, Task> func)
+            where TError : ResultError =>
+            @this.ContinueWith(x => x.Result.OnError(func)).Unwrap();
+
+        public static Task<Result<TResultValue>> OnError<TResultValue>(this Task<Result<TResultValue>> @this, Action func) =>
+            @this.ContinueWith(x => x.Result.OnError(func));
+
+        public static Task<Result<TResultValue>> OnError<TResultValue>(this Task<Result<TResultValue>> @this, Func<Task> func) =>
+            @this.ContinueWith(x => x.Result.OnError(func)).Unwrap();
+
+        public static Task<Result<TResultValue>> OnError<TError, TResultValue>(this Task<Result<TResultValue>> @this, Action<TError> func)
+            where TError : ResultError =>
+            @this.ContinueWith(x => x.Result.OnError(func));
+
+        public static Task<Result<TResultValue>> OnError<TError, TResultValue>(this Task<Result<TResultValue>> @this, Func<TError, Task> func)
+            where TError : ResultError =>
+            @this.ContinueWith(x => x.Result.OnError(func)).Unwrap();
     }
 
     internal class SuccessClass<TValue> : Success<TValue>
@@ -179,18 +302,6 @@ namespace Func
         public Task<Result> Then(Func<Task<Result>> resultFunc) => resultFunc();
         public Result<TResultValue> Then<TResultValue>(Func<Result<TResultValue>> resultFunc) => resultFunc();
         public Task<Result<TResultValue>> Then<TResultValue>(Func<Task<Result<TResultValue>>> resultFunc) => resultFunc();
-
-        public Result OnSuccess(Action func)
-        {
-            func();
-            return this;
-        }
-
-        public Result<TValue> OnSuccess(Action<TValue> func)
-        {
-            func(Value);
-            return this;
-        }
     }
 
     internal class FailureClass<TValue, TError> : Result<TValue>, Failure<TError> where TError : ResultError
@@ -216,8 +327,10 @@ namespace Func
         public Task<Result<TResultValue>> Then<TResultValue>(Func<Task<Result<TResultValue>>> resultFunc) =>
             new FailureClass<TResultValue, TError>(Error).ToTask<Result<TResultValue>>();
 
-        public Result OnSuccess(Action func) => this;
-        public Result<TValue> OnSuccess(Action<TValue> func) => this;
+        public Result OnSuccess(Action _) => this;
+        public Task<Result> OnSuccess(Func<Task> _) => this.ToTask<Result>();
+        public Result<TValue> OnSuccess(Action<TValue> _) => this;
+        public Task<Result<TValue>> OnSuccess(Func<TValue, Task> _) => this.ToTask<Result<TValue>>();
     }
 }
 #pragma warning restore IDE1006 // Naming Styles
