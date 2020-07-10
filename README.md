@@ -118,9 +118,9 @@ public class Example
 
     public void Test()
     {
-        GetDescription(Some(11));    // "Huge"
-        GetDescription(Some(3));     // "Small"
-        GetDescription(None<int>()); // "Empty"
+        _ = GetDescription(Some(11));    // "Huge"
+        _ = GetDescription(Some(3));     // "Small"
+        _ = GetDescription(None<int>()); // "Empty"
     }
 }
 ```
@@ -171,8 +171,8 @@ public class Example
 {
     public async Task RunTests()
     {
-        await Test("test");     // "Hello, Test Testington, you are 123 years old"
-        await Test("invalid");  // "User couldn't be found!"
+        _ = await Test("test");     // "Hello, Test Testington, you are 123 years old"
+        _ = await Test("invalid");  // "User couldn't be found!"
     }
 
     private async Task<string> Test(string username) =>
