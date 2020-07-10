@@ -175,7 +175,7 @@ public class Example
         await Test("invalid");  // "User couldn't be found!"
     }
 
-    private async Task Test(string username) =>
+    private async Task<string> Test(string username) =>
         await
             username
             .Map(GetUserDetails)
