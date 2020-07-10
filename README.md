@@ -169,33 +169,29 @@ using static Func.Result;
 
 public class Example
 {
-    public async Task RunTests()
-    {
-        _ = await Test("test");     // "Hello, Test Testington, you are 123 years old"
-        _ = await Test("invalid");  // "User couldn't be found!"
-    }
-
-    private async Task<string> Test(string username) =>
-        await
-            username
-            .Map(GetUserDetails)
-            .Then(FormatMessage)
+    public async Task<string> GetWelcomeMessage(string username) =>
+        await 
+            GetCurrentUserId(username)
+            .Then(GetUserFullNameFromId)
+            .Then(GetWelcomeMessageForUserFullName)
         switch
         {
             Success<string> s => s.Value,
-            Failure<UserNotFoundError> _ => "User couldn't be found!",
-            Failure _ => "Something unexpected happened!"
-        });
+            Failure<UserNotFoundError> _ => "User could not be found",
+            Failure _ => throw new Exception("Unexpected error occurred getting welcome message for user")
+        };
 
-    private Task<Result<(string Name, int Age)>> GetUserDetails(string username) =>
-        // Imagine going off to a server or database here...
-        (username == "test"
-            ? Succeed(("Test Testington", 123))
-            : Result<(string, int)>.Fail(new UserNotFoundError()))
-        .ToTask();
+    private Task<Result<int>> GetCurrentUserId(string username) => 
+        (username == "test" 
+            ? Succeed(123) 
+            : Result<int>.Fail(new UserNotFoundError())
+        ).ToTask();
 
-    private Result<string> FormatMessage((string Name, int Age) user) =>
-        Succeed($"Hello, {user.Name}, you are {user.Age} years old");
+    private Task<Result<string>> GetUserFullNameFromId(int id) =>
+        Succeed("Test User").ToTask();
+
+    private Result<string> GetWelcomeMessageForUserFullName(string userFullName) => 
+        Succeed($"Hello, {userFullName}");
 }
 
 public class UserNotFoundError : ResultError { }
