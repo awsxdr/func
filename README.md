@@ -118,9 +118,9 @@ public class Example
 
     public void Test()
     {
-        GetDescription(Some(11));    // "Huge"
-        GetDescription(Some(3));     // "Small"
-        GetDescription(None<int>()); // "Empty"
+        _ = GetDescription(Some(11));    // "Huge"
+        _ = GetDescription(Some(3));     // "Small"
+        _ = GetDescription(None<int>()); // "Empty"
     }
 }
 ```
@@ -158,47 +158,53 @@ public class Example
 
 ### Railway-oriented programming (Result)
 
-Func supports railway-oriented programming (ROP). Functions which return a `Result` object can be chained together with calls to `Then`. If any method in the chain fails then the chain stops executing and a fail is returned. The concept is similar to Javascript's promises.
+Func supports railway-oriented programming (ROP). Functions which return a `Result` object can be chained together with calls to `Then`. If any method in the chain fails then the chain stops executing and a fail is returned. The concept is similar to Javascript's promises or Rust's `Result` type.
 
 The aim of ROP is to prevent the use of exceptions for program flow. Methods can fail on non-exceptional errors to avoid continuing without the overhead of throwing an exception.
 
 ```csharp
 using System;
 using System.Threading.Tasks;
+using Func;
 using static Func.Result;
 
 public class Example
 {
-    public async Task RunTests()
-    {
-        await Test("test");     // "Hello, Test Testington, you are 123 years old"
-        await Test("invalid");  // "User couldn't be found!"
-    }
+    private readonly ILogger _logger;
 
-    private async Task Test(string username) =>
+    public Example(ILogger logger) => _logger = logger;
+
+    public async Task<string> GetWelcomeMessage(string username) =>
         await
-            username
-            .Map(GetUserDetails)
-            .Then(FormatMessage)
+            GetCurrentUserId(username)
+            .Then(GetUserFullNameFromId)
+            .Then(GetWelcomeMessageForUserFullName)
+            .OnSuccess(() => _logger.LogInformation($"User {username} found"))
+            .OnError<UserNotFoundError, string>(e => { _logger.LogWarn($"User {username} not found"); })
+            .OnError(() => _logger.LogWarn("Something went very wrong!"))
         switch
         {
             Success<string> s => s.Value,
-            Failure<UserNotFoundError> _ => "User couldn't be found!",
-            Failure _ => "Something unexpected happened!"
-        });
+            Failure<UserNotFoundError> _ => "User could not be found",
+            Failure _ => throw new Exception("Unexpected error occurred getting welcome message for user")
+        };
 
-    private Task<Result<(string Name, int Age)>> GetUserDetails(string username) =>
-        // Imagine going off to a server or database here...
+    private Task<Result<int>> GetCurrentUserId(string username) =>
         (username == "test"
-            ? Succeed(("Test Testington", 123))
-            : Result<(string, int)>.Fail(new UserNotFoundError()))
-        .ToTask();
+            ? Succeed(123)
+            : Result<int>.Fail(new UserNotFoundError())
+        ).ToTask();
 
-    private Result<string> FormatMessage((string Name, int Age) user) =>
-        Succeed($"Hello, {user.Name}, you are {user.Age} years old");
+    private Task<Result<string>> GetUserFullNameFromId(int id) =>
+        Succeed("Test User").ToTask();
+
+    private Result<string> GetWelcomeMessageForUserFullName(string userFullName) =>
+        Succeed($"Hello, {userFullName}");
 }
 
 public class UserNotFoundError : ResultError { }
 ```
 
 Note here that the call to `Fail` requires the result types to be passed. This is because the types can't be inferred.
+
+Also note that `OnError` requires both the error type and the result value type to be given. However, this isn't required when capturing all errors.
