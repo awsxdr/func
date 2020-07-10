@@ -35,8 +35,6 @@ jobs:
     - name: Persist artifacts
       uses: actions/upload-artifact@v1
       with:
-        name: func
-        path: |
-          Func/bin/Release/netstandard2.1/Func.dll
-          Func/bin/Release/Func.${{ steps.gitversion.outputs.FullSemVer }}.nupkg
+        name: Func
+        path: Func/bin/Release/Func.${{ steps.gitversion.outputs.FullSemVer }}.nupkg
         

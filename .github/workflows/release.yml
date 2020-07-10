@@ -35,6 +35,6 @@ jobs:
     - name: Persist artifacts
       uses: actions/upload-artifact@v1
       with:
-        name: func.nupkg
+        name: Func
         path: Func/bin/Release/Func.${{ steps.gitversion.outputs.MajorMinorPatch }}.nupkg
         
