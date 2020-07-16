@@ -576,6 +576,22 @@
             result.Should().Be(expectedResult);
         }
 
+        [Test]
+        public void GetValue_WithValueSuccess_ReturnsValue()
+        {
+            var result = Succeed(123) as Success;
+            var value = result.GetValue();
+            value.Should().BeAssignableTo<Some<object>>();
+            (value as Some<object>).Value.Should().Be(123);
+        }
+
+        [Test]
+        public void GetValue_WithValuelessSuccess_ReturnsNone()
+        {
+            var result = Succeed() as Success;
+            result.GetValue().Should().BeAssignableTo<None>();
+        }
+
         private static Func<Result> TestMethod(bool shouldSucceed) => () =>
             shouldSucceed
             ? Succeed()

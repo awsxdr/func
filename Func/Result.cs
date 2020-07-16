@@ -3,6 +3,9 @@
 namespace Func
 {
     using System;
+    using System.Linq;
+    using System.Reflection;
+    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
     public interface Result
@@ -87,6 +90,23 @@ namespace Func
 
     public interface Success : Result
     {
+    }
+
+    public static class SuccessExtensionMethods
+    {
+        private static readonly MethodInfo ValueGetter = typeof(Success<>).GetProperty("Value").GetGetMethod();
+
+        public static Option<object> GetValue(this Success @this) =>
+            IsValueSuccess(@this)
+            ? @this.Map(GetValueGetter).Invoke(@this, new object[0]).Map(Option.Some)
+            : Option.None<object>();
+
+        private static bool IsValueSuccess(Success success) =>
+            success.GetType().IsGenericType &&
+            typeof(SuccessClass<>).IsAssignableFrom(success.GetType().GetGenericTypeDefinition());
+
+        private static MethodInfo GetValueGetter(Success success) =>
+            typeof(SuccessClass<>).MakeGenericType(success.GetType().GetGenericArguments()).GetProperty("Value").GetGetMethod();
     }
 
     public interface Success<TValue> : Result<TValue>, Success
