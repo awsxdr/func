@@ -3,9 +3,7 @@
 namespace Func
 {
     using System;
-    using System.Linq;
     using System.Reflection;
-    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
     public interface Result
@@ -94,8 +92,6 @@ namespace Func
 
     public static class SuccessExtensionMethods
     {
-        private static readonly MethodInfo ValueGetter = typeof(Success<>).GetProperty("Value").GetGetMethod();
-
         public static Option<object> GetValue(this Success @this) =>
             IsValueSuccess(@this)
             ? @this.Map(GetValueGetter).Invoke(@this, new object[0]).Map(Option.Some)
@@ -116,6 +112,15 @@ namespace Func
 
     public interface Failure : Result
     { 
+    }
+
+    public static class FailureExtensionMethods
+    {
+        public static ResultError GetError(this Failure @this) =>
+            @this.Map(GetErrorGetter).Invoke(@this, new object[0]) as ResultError;
+
+        private static MethodInfo GetErrorGetter(Failure failure) =>
+            typeof(FailureClass<,>).MakeGenericType(failure.GetType().GetGenericArguments()).GetProperty("Error").GetGetMethod();
     }
 
     public interface Failure<out TError> : Failure where TError : ResultError
