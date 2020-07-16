@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Func
+﻿namespace Func
 {
+    using System;
+
     public interface Option
     {
         public static Option<TValue> Some<TValue>(TValue value) =>
