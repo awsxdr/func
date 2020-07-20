@@ -59,7 +59,7 @@ public class Example
 
     public async Task<string> GetWelcomeMessage() =>
         await GetCurrentUserId()
-        .Tee<int>(id => _logger.LogInformation("Generating welcome message for user {0}", id))
+        .Tee((int id) => _logger.LogInformation("Generating welcome message for user {0}", id))
         .Map(GetUserNameFromId)
         .Map(GetWelcomeMessageForUserName);
 
@@ -71,7 +71,7 @@ public class Example
 
 Here, several methods are chained together; some of them returning tasks, some not. A single `Task` is returned which performs all of the chained actions.
 
-Of note here is the use of `<int>` on `Tee`. Generally the compiler will be able to infer the types being used, but in cases like this where the argument is of type `object` a type needs specifying. If you encounter these sort of errors you can provide the types or, perhaps preferably, provide a more strongly typed method to call.
+Of note here is the use of `int` on `Tee`. Generally the compiler will be able to infer the types being used, but in cases like this where the argument is of type `object` a type needs specifying. If you encounter these sort of errors you can provide the types or, perhaps preferably, provide a more strongly typed method to call.
 
 #### Multiple arguments
 
@@ -180,7 +180,7 @@ public class Example
             .Then(GetUserFullNameFromId)
             .Then(GetWelcomeMessageForUserFullName)
             .OnSuccess(() => _logger.LogInformation($"User {username} found"))
-            .OnError<UserNotFoundError, string>(e => { _logger.LogWarn($"User {username} not found"); })
+            .OnError((UserNotFoundError e) => { _logger.LogWarn($"User {username} not found"); })
             .OnError(() => _logger.LogWarn("Something went very wrong!"))
         switch
         {
@@ -207,4 +207,4 @@ public class UserNotFoundError : ResultError { }
 
 Note here that the call to `Fail` requires the result types to be passed. This is because the types can't be inferred.
 
-Also note that `OnError` requires both the error type and the result value type to be given. However, this isn't required when capturing all errors.
+Also note that the error type is specified in the lambda for `OnError`. If not specified here then the method would require both the error type and result type specified in angular brackets.
