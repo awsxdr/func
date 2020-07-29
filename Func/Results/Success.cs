@@ -36,6 +36,9 @@ namespace Func
         public Task<Result> Then(Func<Task<Result>> resultFunc) => resultFunc();
         public Result<TResultValue> Then<TResultValue>(Func<Result<TResultValue>> resultFunc) => resultFunc();
         public Task<Result<TResultValue>> Then<TResultValue>(Func<Task<Result<TResultValue>>> resultFunc) => resultFunc();
+
+        public TValue ValueOr(Func<TValue> _) => Value;
+        public Task<TValue> ValueOr(Func<Task<TValue>> _) => Value.ToTask();
     }
 }
 #pragma warning restore IDE1006 // Naming Styles

@@ -20,6 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Func.Legacy", "Func.Legacy\Func.Legacy.csproj", "{9284237D-2ED8-4800-BECE-1A13EC24D92E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Func.Legacy.UnitTests", "Func.Legacy.UnitTests\Func.Legacy.UnitTests.csproj", "{5778CB7D-518C-443C-92A8-6365526E36F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +38,12 @@ Global
 		{114BEDBA-A6D3-4DD0-B330-EB3A4AC7E3AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{114BEDBA-A6D3-4DD0-B330-EB3A4AC7E3AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{114BEDBA-A6D3-4DD0-B330-EB3A4AC7E3AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9284237D-2ED8-4800-BECE-1A13EC24D92E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9284237D-2ED8-4800-BECE-1A13EC24D92E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9284237D-2ED8-4800-BECE-1A13EC24D92E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5778CB7D-518C-443C-92A8-6365526E36F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5778CB7D-518C-443C-92A8-6365526E36F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5778CB7D-518C-443C-92A8-6365526E36F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +51,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{114BEDBA-A6D3-4DD0-B330-EB3A4AC7E3AD} = {F0BBF5EB-A19B-44E2-AF13-AB8480B3CC9B}
 		{6124B6AB-55C6-490A-96CB-32DB214BCDA3} = {200494B4-20C3-47F4-B3F5-0699FB23642C}
+		{5778CB7D-518C-443C-92A8-6365526E36F9} = {F0BBF5EB-A19B-44E2-AF13-AB8480B3CC9B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF2A3DB8-D4CD-41DB-B754-958B947BEBDB}

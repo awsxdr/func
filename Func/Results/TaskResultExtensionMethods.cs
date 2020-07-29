@@ -88,6 +88,19 @@ namespace Func
         public static Task<Result<TResultValue>> OnError<TError, TResultValue>(this Task<Result<TResultValue>> @this, Func<TError, Task> func)
             where TError : ResultError =>
             @this.ContinueWith(x => x.Result.OnError(func)).Unwrap();
+
+        public static Task<TValue> ValueOr<TValue>(this Task<Result<TValue>> @this, Func<Task<TValue>> onError) =>
+            @this.ContinueWith(x =>
+                x.Result is Success<TValue> s
+                ? s.Value.ToTask()
+                : onError())
+            .Unwrap();
+
+        public static Task<TValue> ValueOr<TValue>(this Task<Result<TValue>> @this, Func<TValue> onError) =>
+            @this.ContinueWith(x =>
+                x.Result is Success<TValue> s
+                ? s.Value
+                : onError());
     }
 }
 #pragma warning restore IDE1006 // Naming Styles

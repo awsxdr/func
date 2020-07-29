@@ -41,6 +41,9 @@ namespace Func
         public Task<Result> OnSuccess(Func<Task> _) => this.ToTask<Result>();
         public Result<TValue> OnSuccess(Action<TValue> _) => this;
         public Task<Result<TValue>> OnSuccess(Func<TValue, Task> _) => this.ToTask<Result<TValue>>();
+
+        public TValue ValueOr(Func<TValue> onError) => onError();
+        public Task<TValue> ValueOr(Func<Task<TValue>> onError) => onError();
     }
 }
 #pragma warning restore IDE1006 // Naming Styles
