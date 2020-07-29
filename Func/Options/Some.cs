@@ -2,15 +2,13 @@
 #pragma warning disable IDE1006 // Naming Styles
 namespace Func
 {
-#if NET45
     using System;
-#endif
 
     public interface Some : Option
     {
     }
 
-    public interface Some<TValue> : Some, Option<TValue>
+    public interface Some<TValue> : Some, Option<TValue>, IEquatable<TValue>, IEquatable<Some<TValue>>
     {
         TValue Value { get; }
     }
@@ -32,6 +30,14 @@ namespace Func
 #endif
 
         internal SomeClass(TValue value) => Value = value;
+
+        public bool Equals(TValue other) => Value.Equals(other);
+        public bool Equals(Some<TValue> other) => Value.Equals(other.Value);
+
+        public static implicit operator TValue(SomeClass<TValue> value) => value.Value;
+        public static implicit operator SomeClass<TValue>(TValue value) => new SomeClass<TValue>(value);
+
+        public override string ToString() => Value.ToString();
     }
 }
 #pragma warning restore IDE1006

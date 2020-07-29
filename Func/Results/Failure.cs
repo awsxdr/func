@@ -3,6 +3,7 @@
 namespace Func
 {
     using System;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     public interface Failure : Result
@@ -44,6 +45,15 @@ namespace Func
 
         public TValue ValueOr(Func<TValue> onError) => onError();
         public Task<TValue> ValueOr(Func<Task<TValue>> onError) => onError();
+    }
+
+    public static class FailureExtensionMethods
+    {
+        public static ResultError GetError(this Failure @this) =>
+            @this.Map(GetErrorGetter).Invoke(@this, new object[0]) as ResultError;
+
+        private static MethodInfo GetErrorGetter(Failure failure) =>
+            typeof(FailureClass<,>).MakeGenericType(failure.GetType().GetGenericArguments()).GetProperty("Error").GetGetMethod();
     }
 }
 #pragma warning restore IDE1006 // Naming Styles

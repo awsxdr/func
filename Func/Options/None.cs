@@ -24,6 +24,13 @@ namespace Func
             return this;
         }
 #endif
+
+        public override bool Equals(object obj) =>
+            obj is None<TValue>;
+
+        public override int GetHashCode() => base.GetHashCode();
+
+        public override string ToString() => "{ Empty }";
     }
 }
 #pragma warning restore IDE1006

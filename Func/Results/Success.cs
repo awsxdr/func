@@ -3,7 +3,9 @@
 namespace Func
 {
     using System;
+    using System.Reflection;
     using System.Threading.Tasks;
+
 
     public interface Success : Result
     {
@@ -39,6 +41,28 @@ namespace Func
 
         public TValue ValueOr(Func<TValue> _) => Value;
         public Task<TValue> ValueOr(Func<Task<TValue>> _) => Value.ToTask();
+    }
+
+    public static class SuccessExtensionMethods
+    {
+#if NET45
+        public static Option<object> GetValue(this Success @this) =>
+            IsValueSuccess(@this)
+            ? @this.Map(GetValueGetter).Invoke(@this, new object[0]).Map(OptionHelper.Some)
+            : OptionHelper.None<object>();
+#else
+        public static Option<object> GetValue(this Success @this) =>
+            IsValueSuccess(@this)
+            ? @this.Map(GetValueGetter).Invoke(@this, new object[0]).Map(Option.Some)
+            : Option.None<object>();
+#endif
+
+        private static bool IsValueSuccess(Success success) =>
+            success.GetType().IsGenericType &&
+            typeof(SuccessClass<>).IsAssignableFrom(success.GetType().GetGenericTypeDefinition());
+
+        private static MethodInfo GetValueGetter(Success success) =>
+            typeof(SuccessClass<>).MakeGenericType(success.GetType().GetGenericArguments()).GetProperty("Value").GetGetMethod();
     }
 }
 #pragma warning restore IDE1006 // Naming Styles
