@@ -1,0 +1,62 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<# const int UnionTypeLimit = 10; #>
+namespace Func
+{
+#if NETSTANDARD2_1
+    using static Option;
+#else
+    using static OptionHelper;
+#endif
+
+    public static class UnionExtensionMethods
+    {
+        public static bool Is<T>(this Union @this) => @this.Value is Some<T>;
+        public static bool Is<T>(this Union @this, out T value)
+        {
+            if (@this.Value is Some<T> s)
+            {
+                value = s.Value;
+                return true;
+            }
+            else
+            {
+                value = default(T);
+                return false;
+            }
+        }
+    }
+
+    public interface Union
+    {
+        Option Value { get; }
+    }
+
+<# for(var i = 2; i <= UnionTypeLimit; ++i) { #>
+
+    public class Union<<# WriteGenericTypes(i); #>> : Union
+    {
+        public Option Value { get; protected set; }
+
+        protected Union() => Value = None();
+<# for(var j = 1; j <= i; ++j) { #>
+        protected Union(T<#= j #> value) => Value = Some(value);
+<# } #>
+
+<# for(var j = 1; j <= i; ++j) { #>
+        public static implicit operator Union<<# WriteGenericTypes(i); #>>(T<#= j #> value) => new Union<<# WriteGenericTypes(i); #>>(value);
+<# } #>
+    }
+<# } #>
+}
+
+<#+
+	void WriteGenericTypes(int count)
+	{
+		for (var i = 1; i <= count; ++i) { #>T<#= i #><#+ if(i < count) { #>, <#+}}
+	}
+#>
