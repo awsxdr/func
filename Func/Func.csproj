@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net45</TargetFrameworks>
@@ -20,6 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Union.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Union.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Currying.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Currying.cs</LastGenOutput>
@@ -31,6 +39,10 @@
     <None Update="MapExtensionMethods.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapExtensionMethods.cs</LastGenOutput>
+    </None>
+    <None Update="Union.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Union.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -53,6 +65,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TeeExtensionMethods.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Union.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Union.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
