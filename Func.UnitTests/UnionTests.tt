@@ -1,0 +1,70 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+namespace Func.UnitTests
+{
+	using System;
+	using NUnit.Framework;
+	using FluentAssertions;
+
+	[TestFixture]
+	public class UnionTests
+	{
+<# for(var c = 2; c <= 10; ++c) { for(var t = 1; t <= c; ++t) { #>
+		[Test]
+		public void UnionWith<#= c #>Types_ConvertsFromType<#= t #>()
+		{
+			var value = new TestType<#= t #>();
+			Union<<# WriteGenericTypes(c); #>> union = value;
+			switch(union.Value)
+			{
+				case Some<TestType<#= t #>> v: 
+					v.Value.Id.Should().Be(value.Id);
+					break;
+				default: 
+					throw new AssertionException($"Union value was expected to be of type Some<TestType<#= t #>> but found {union.Value.GetType().Name}");
+			}
+		}
+
+		[Test]
+		public void Is_OnUnionWith<#= c #>Types_ReturnsExpectedValue_WithType<#= t #>()
+		{
+			Union<<# WriteGenericTypes(c); #>> union = new TestType<#= t #>();
+			union.Is<TestType<#= t #>>().Should().BeTrue();
+			union.Is<TestType<#= t > 1 ? t - 1 : 2 #>>().Should().BeFalse();
+		}
+
+		[Test]
+		public void Is_OnUnionWith<#= c #>Types_OutputsValue_WithType<#= t #>()
+		{
+			var value = new TestType<#= t #>();
+			Union<<# WriteGenericTypes(c); #>> union = value;
+			union.Is<TestType<#= t #>>(out var v);
+			v.Id.Should().Be(value.Id);
+		}
+
+<# } } #>
+
+		private abstract class TestType
+		{
+			public Guid Id { get; } = Guid.NewGuid();
+		}
+
+<# for(var i = 1; i <= 10; ++i) { #>
+		private class TestType<#= i #> : TestType
+		{
+		}
+<# } #>
+	}
+}
+
+
+<#+
+	void WriteGenericTypes(int count)
+	{
+		for (var i = 1; i <= count; ++i) { #>TestType<#= i #><#+ if(i < count) { #>, <#+}}
+	}
+#>

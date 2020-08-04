@@ -17,6 +17,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TeeExtensionMethodsCurryTests.tt</DependentUpon>
     </None>
+    <None Include="UnionTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UnionTests.tt</DependentUpon>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +51,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TeeExtensionMethodsCurryTests.cs</LastGenOutput>
     </None>
+    <None Update="UnionTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UnionTests.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -67,6 +76,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TeeExtensionMethodsCurryTests.tt</DependentUpon>
+    </Compile>
+    <Compile Update="UnionTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UnionTests.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
