@@ -5,7 +5,7 @@ namespace Func
     using System;
     using System.Threading.Tasks;
 
-#if NET45
+#if !NETSTANDARD2_1
     public static class ResultHelper
 #else
     public interface Result
@@ -56,10 +56,10 @@ namespace Func
             }
             catch(Exception ex)
             {
-#if NET45
-                return ResultHelper<TValue>.Fail(catchFunc(ex));
-#else
+#if NETSTANDARD2_1
                 return Result<TValue>.Fail(catchFunc(ex));
+#else
+                return ResultHelper<TValue>.Fail(catchFunc(ex));
 #endif
             }
         }
@@ -72,14 +72,14 @@ namespace Func
             }
             catch(Exception ex)
             {
-#if NET45
-                return ResultHelper<TValue>.Fail(catchFunc(ex));
-#else
+#if NETSTANDARD2_1
                 return Result<TValue>.Fail(catchFunc(ex));
+#else
+                return ResultHelper<TValue>.Fail(catchFunc(ex));
 #endif
             }
         }
-#if NET45
+#if !NETSTANDARD2_1
     }
 
     public interface Result
@@ -91,16 +91,16 @@ namespace Func
         Task<Result<TResultValue>> Then<TResultValue>(Func<Task<Result<TResultValue>>> resultFunc);
     }
 
-#if NET45
-    public static class ResultHelper<TValue>
-#else
+#if NETSTANDARD2_1
     public interface Result<TValue> : Result
+#else
+    public static class ResultHelper<TValue>
 #endif
     {
         public new static Result<TValue> Fail<TError>(TError error) where TError : ResultError =>
             new FailureClass<TValue, TError>(error);
 
-#if NET45
+#if !NETSTANDARD2_1
     }
 
     public interface Result<TValue> : Result
