@@ -20,6 +20,9 @@ namespace Func
         public static Result Fail<TError>(TError error) where TError : ResultError =>
             new FailureClass<object, TError>(error);
 
+        public static Result Fail<TError>() where TError : ResultError, new() =>
+            Fail(new TError());
+
         public static Result CaptureResult<TError>(Action func, Func<Exception, TError> catchFunc) where TError : ResultError
         {
             try
@@ -100,6 +103,8 @@ namespace Func
         public new static Result<TValue> Fail<TError>(TError error) where TError : ResultError =>
             new FailureClass<TValue, TError>(error);
 
+        public new static Result<TValue> Fail<TError>() where TError : ResultError, new() =>
+            Fail(new TError());
 #if !NETSTANDARD2_1
     }
 
