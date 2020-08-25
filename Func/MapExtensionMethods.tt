@@ -4,7 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-<# const int ArgumentLimit = 15; #>
+<# const int ArgumentLimit = 6; #>
 namespace Func
 {
 	using System;

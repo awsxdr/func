@@ -4,7 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-<# const int CurryLimit = 15; #>
+<# const int CurryLimit = 6; #>
 namespace Func
 {
 	using System;
