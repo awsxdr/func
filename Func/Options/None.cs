@@ -2,7 +2,7 @@
 #pragma warning disable IDE1006 // Naming Styles
 namespace Func
 {
-#if NET45
+#if !NETSTANDARD2_1
     using System;
 #endif
 
@@ -16,7 +16,7 @@ namespace Func
 
     internal class NoneClass<TValue> : None<TValue>
     {
-#if NET45
+#if !NETSTANDARD2_1
         public Option GetValue<TValue1>(Action<TValue1> valueReceiver) => this;
         public Option IfNone(Action ifNone)
         {

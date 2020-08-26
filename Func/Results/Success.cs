@@ -45,7 +45,7 @@ namespace Func
 
     public static class SuccessExtensionMethods
     {
-#if NET45
+#if !NETSTANDARD2_1
         public static Option<object> GetValue(this Success @this) =>
             IsValueSuccess(@this)
             ? @this.Map(GetValueGetter).Invoke(@this, new object[0]).Map(OptionHelper.Some)

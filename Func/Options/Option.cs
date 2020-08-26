@@ -2,14 +2,14 @@
 #pragma warning disable IDE1006 // Naming Styles
 namespace Func
 {
-#if NET45
+#if !NETSTANDARD2_1
     using System;
 #endif
 
-#if NET45
-    public static class OptionHelper
-#else
+#if NETSTANDARD2_1
     public interface Option
+#else
+    public static class OptionHelper
 #endif
     {
         public static Option<TValue> Some<TValue>(TValue value) =>
@@ -20,7 +20,7 @@ namespace Func
         public static Option<TValue> None<TValue>() => new NoneClass<TValue>();
     }
 
-#if NET45
+#if !NETSTANDARD2_1
     public interface Option
     {
         Option GetValue<TValue>(Action<TValue> valueReceiver);

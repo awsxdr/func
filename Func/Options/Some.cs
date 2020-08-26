@@ -17,7 +17,7 @@ namespace Func
     {
         public TValue Value { get; }
 
-#if NET45
+#if !NETSTANDARD2_1
         public Option GetValue<TDesiredValue>(Action<TDesiredValue> valueReceiver)
         {
             if (Value is TDesiredValue v)
