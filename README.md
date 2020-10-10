@@ -2,4 +2,4 @@
 
 This is the documentation branch for Func. For code, please see the master or develop branches.
 
-Test: [Test page](/testpage)
+Test: [Test page](/func/testpage)
