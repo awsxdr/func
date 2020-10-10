@@ -6,6 +6,11 @@
 
 Func is a library designed to expand C#'s functional programming capabilities.
 
+## Links
+
+* [Getting Started](getting-started)
+* [Reference](reference)
+
 ## Contents
 
 * [Usage](#usage)
