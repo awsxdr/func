@@ -7,29 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="MapExtensionMethodsCurryTests.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MapExtensionMethodsCurryTests.tt</DependentUpon>
-    </None>
-    <None Include="ResultArgumentAdditionsTests.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ResultArgumentAdditionsTests.tt</DependentUpon>
-    </None>
-    <None Include="TeeExtensionMethodsCurryTests.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TeeExtensionMethodsCurryTests.tt</DependentUpon>
-    </None>
-    <None Include="UnionTests.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UnionTests.tt</DependentUpon>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="nunit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
@@ -48,17 +25,13 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CurryingTests.cs</LastGenOutput>
     </None>
-    <None Update="MapExtensionMethodsArgumentAdditionsTests.tt">
+    <None Update="MapExtensionMethodsCurryTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MapExtensionMethodsArgumentAdditionsTests.cs</LastGenOutput>
+      <LastGenOutput>MapExtensionMethodsCurryTests.cs</LastGenOutput>
     </None>
-    <None Update="ResultArgumentAdditionsTests.tt">
+    <None Update="TeeExtensionMethodsCurryTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ResultArgumentAdditionsTests.cs</LastGenOutput>
-    </None>
-    <None Update="TeeExtensionMethodsArgumentAdditionsTests.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TeeExtensionMethodsArgumentAdditionsTests.cs</LastGenOutput>
+      <LastGenOutput>TeeExtensionMethodsCurryTests.cs</LastGenOutput>
     </None>
     <None Update="UnionTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -76,20 +49,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CurryingTests.tt</DependentUpon>
     </Compile>
-    <Compile Update="MapExtensionMethodsArgumentAdditionsTests.cs">
+    <Compile Update="MapExtensionMethodsCurryTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>MapExtensionMethodsArgumentAdditionsTests.tt</DependentUpon>
+      <DependentUpon>MapExtensionMethodsCurryTests.tt</DependentUpon>
     </Compile>
-    <Compile Update="ResultArgumentAdditionsTests.cs">
+    <Compile Update="TeeExtensionMethodsCurryTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ResultArgumentAdditionsTests.tt</DependentUpon>
-    </Compile>
-    <Compile Update="TeeExtensionMethodsArgumentAdditionsTests.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TeeExtensionMethodsArgumentAdditionsTests.tt</DependentUpon>
+      <DependentUpon>TeeExtensionMethodsCurryTests.tt</DependentUpon>
     </Compile>
     <Compile Update="UnionTests.cs">
       <DesignTime>True</DesignTime>
