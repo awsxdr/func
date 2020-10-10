@@ -20,6 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Results\ResultArgumentAdditions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResultArgumentAdditions.tt</DependentUpon>
+    </None>
     <None Include="Union.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -31,6 +36,10 @@
     <None Update="Currying.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Currying.cs</LastGenOutput>
+    </None>
+    <None Update="Results\ResultArgumentAdditions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ResultArgumentAdditions.cs</LastGenOutput>
     </None>
     <None Update="TeeExtensionMethods.tt">
       <LastGenOutput>TeeExtensionMethods.cs</LastGenOutput>
@@ -60,6 +69,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MapExtensionMethods.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Results\ResultArgumentAdditions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResultArgumentAdditions.tt</DependentUpon>
     </Compile>
     <Compile Update="TeeExtensionMethods.cs">
       <DesignTime>True</DesignTime>

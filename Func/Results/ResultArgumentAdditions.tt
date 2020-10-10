@@ -1,0 +1,151 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<# const int ArgumentLimit = 6; #>
+namespace Func
+{
+	using System;
+	using System.Threading.Tasks;
+
+	public partial interface Result
+	{
+<# for(var i = 1; i <= ArgumentLimit; ++i) { #>
+		Result Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, Result> resultFunc, <# WriteValueTypesAndVariables(i); #>);
+		Task<Result> Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, Task<Result>> resultFunc, <# WriteValueTypesAndVariables(i); #>);
+
+		Result<TResultValue> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, Result<TResultValue>> resultFunc, <# WriteValueTypesAndVariables(i); #>);
+		Task<Result<TResultValue>> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, Task<Result<TResultValue>>> resultFunc, <# WriteValueTypesAndVariables(i); #>);
+
+<# } #>
+	}
+
+	public partial interface Result<TValue> : Result
+	{
+<# for(var i = 1; i <= ArgumentLimit; ++i) { #>
+		Task<Result> Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, TValue, Task<Result>> resultFunc, <# WriteValueTypesAndVariables(i); #>);
+		Result Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, TValue, Result> resultFunc, <# WriteValueTypesAndVariables(i); #>);
+
+		Task<Result<TResultValue>> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, TValue, Task<Result<TResultValue>>> resultFunc, <# WriteValueTypesAndVariables(i); #>);
+		Result<TResultValue> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, TValue, Result<TResultValue>> resultFunc, <# WriteValueTypesAndVariables(i); #>);
+
+<# } #>
+	}
+
+	internal partial class SuccessClass : Success
+	{
+<# for(var i = 1; i <= ArgumentLimit; ++i) { #>
+		public Result Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, Result> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			resultFunc(<# WriteValueVariables(i); #>);
+		public Task<Result> Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, Task<Result>> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			resultFunc(<# WriteValueVariables(i); #>);
+
+		public Result<TResultValue> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, Result<TResultValue>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+			resultFunc(<# WriteValueVariables(i); #>);
+		public Task<Result<TResultValue>> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, Task<Result<TResultValue>>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+			resultFunc(<# WriteValueVariables(i); #>);
+
+<# } #>
+	}
+
+	internal partial class SuccessClass<TValue> : Success<TValue>
+	{
+<# for(var i = 1; i <= ArgumentLimit; ++i) { #>
+		public Task<Result> Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, TValue, Task<Result>> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			resultFunc(<# WriteValueVariables(i); #>, Value);
+		public Result Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, TValue, Result> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			resultFunc(<# WriteValueVariables(i); #>, Value);
+
+		public Task<Result<TResultValue>> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, TValue, Task<Result<TResultValue>>> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			resultFunc(<# WriteValueVariables(i); #>, Value);
+		public Result<TResultValue> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, TValue, Result<TResultValue>> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			resultFunc(<# WriteValueVariables(i); #>, Value);
+
+		public Task<Result> Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, Task<Result>> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			resultFunc(<# WriteValueVariables(i); #>);
+		public Result Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, Result> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			resultFunc(<# WriteValueVariables(i); #>);
+
+		public Task<Result<TResultValue>> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, Task<Result<TResultValue>>> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			resultFunc(<# WriteValueVariables(i); #>);
+		public Result<TResultValue> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, Result<TResultValue>> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			resultFunc(<# WriteValueVariables(i); #>);
+
+<# } #>
+	}
+
+	internal partial class FailureClass<TValue, TError> : Result<TValue>, Failure<TError> where TError : ResultError
+	{
+<# for(var i = 1; i <= ArgumentLimit; ++i) { #>
+		public Result Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, Result> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			this;
+		public Task<Result> Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, Task<Result>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+			this.ToTask<Result>();
+
+		public Result<TResultValue> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, Result<TResultValue>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            new FailureClass<TResultValue, TError>(Error);
+		public Task<Result<TResultValue>> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, Task<Result<TResultValue>>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            new FailureClass<TResultValue, TError>(Error).ToTask<Result<TResultValue>>();
+
+		public Task<Result> Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, TValue, Task<Result>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+			this.ToTask<Result>();
+		public Result Then<<# WriteValueTypes(i); #>>(Func<<# WriteValueTypes(i); #>, TValue, Result> resultFunc, <# WriteValueTypesAndVariables(i); #>) => 
+			this;
+
+		public Task<Result<TResultValue>> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, TValue, Task<Result<TResultValue>>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            new FailureClass<TResultValue, TError>(Error).ToTask<Result<TResultValue>>();
+		public Result<TResultValue> Then<<# WriteValueTypes(i); #>, TResultValue>(Func<<# WriteValueTypes(i); #>, TValue, Result<TResultValue>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            new FailureClass<TResultValue, TError>(Error);
+
+<# } #>
+	}
+
+	public static class ResultArgumentAdditionExtensions
+	{
+<# for(var i = 1; i <= ArgumentLimit; ++i) { #>
+		public static Task<Result> Then<<# WriteValueTypes(i); #>>(this Task<Result> @this, Func<<# WriteValueTypes(i); #>, Task<Result>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            @this.ContinueWith(x => x.Result.Then(() => resultFunc(<# WriteValueVariables(i); #>))).Unwrap();
+
+		public static Task<Result> Then<<# WriteValueTypes(i); #>>(this Task<Result> @this, Func<<# WriteValueTypes(i); #>, Result> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            @this.ContinueWith(x => x.Result.Then(() => resultFunc(<# WriteValueVariables(i); #>)));
+
+		public static Task<Result<TResultValue>> Then<<# WriteValueTypes(i); #>, TResultValue>(this Task<Result> @this, Func<<# WriteValueTypes(i); #>, Task<Result<TResultValue>>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            @this.ContinueWith(x => x.Result.Then(() => resultFunc(<# WriteValueVariables(i); #>))).Unwrap();
+
+		public static Task<Result<TResultValue>> Then<<# WriteValueTypes(i); #>, TResultValue>(this Task<Result> @this, Func<<# WriteValueTypes(i); #>, Result<TResultValue>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            @this.ContinueWith(x => x.Result.Then(() => resultFunc(<# WriteValueVariables(i); #>)));
+
+		public static Task<Result> Then<TValue, <# WriteValueTypes(i); #>>(this Task<Result<TValue>> @this, Func<<# WriteValueTypes(i); #>, TValue, Task<Result>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            @this.ContinueWith(x => x.Result.Then(value => resultFunc(<# WriteValueVariables(i); #>, value))).Unwrap();
+
+		public static Task<Result> Then<TValue, <# WriteValueTypes(i); #>>(this Task<Result<TValue>> @this, Func<<# WriteValueTypes(i); #>, TValue, Result> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            @this.ContinueWith(x => x.Result.Then(value => resultFunc(<# WriteValueVariables(i); #>, value)));
+
+		public static Task<Result<TResultValue>> Then<TValue, <# WriteValueTypes(i); #>, TResultValue>(this Task<Result<TValue>> @this, Func<<# WriteValueTypes(i); #>, TValue, Task<Result<TResultValue>>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            @this.ContinueWith(x => x.Result.Then(value => resultFunc(<# WriteValueVariables(i); #>, value))).Unwrap();
+
+		public static Task<Result<TResultValue>> Then<TValue, <# WriteValueTypes(i); #>, TResultValue>(this Task<Result<TValue>> @this, Func<<# WriteValueTypes(i); #>, TValue, Result<TResultValue>> resultFunc, <# WriteValueTypesAndVariables(i); #>) =>
+            @this.ContinueWith(x => x.Result.Then(value => resultFunc(<# WriteValueVariables(i); #>, value)));
+
+<# } #>
+	}
+}
+
+<#+
+	void WriteValueTypes(int count)
+	{
+		for (var i = 1; i <= count; ++i) { #>TValue<#= i #><#+ if(i < count) { #>, <#+}}
+	}
+
+	void WriteValueVariables(int count)
+	{
+		for (var i = 1; i <= count; ++i) { #>value<#= i #><#+ if(i < count) { #>, <#+}}
+	}
+
+	void WriteValueTypesAndVariables(int count)
+	{
+		for (var i = 1; i <= count; ++i) { #>TValue<#= i #> value<#= i #><#+ if(i < count) { #>, <#+}}
+	}
+#>

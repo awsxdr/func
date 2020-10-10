@@ -4,7 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-<# const int CurryLimit = 6; #>
+<# const int ArgumentLimit = 6; #>
 namespace Func
 {
 	using System;
@@ -12,7 +12,7 @@ namespace Func
 	
 	public static class TeeExtensionMethods
 	{
-<# for(var i = 1; i <= CurryLimit; ++i) { #>
+<# for(var i = 1; i <= ArgumentLimit; ++i) { #>
 		public static Task<TValue<#= i #>> Tee<<# WriteValueTypes(i); #>>(this Task<TValue<#= i #>> valueTask, Func<<# WriteValueTypes(i); #>, Task> func<# if(i > 1) { #>, <# } WriteValueTypesAndVariables(i - 1); #>) =>
 			valueTask.ContinueWith(async value<#= i #> =>
 			{

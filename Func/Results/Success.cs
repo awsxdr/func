@@ -16,7 +16,7 @@ namespace Func
         TValue Value { get; }
     }
 
-    internal class SuccessClass : Success
+    internal partial class SuccessClass : Success
     {
         public Result Then(Func<Result> resultFunc) => resultFunc();
         public Task<Result> Then(Func<Task<Result>> resultFunc) => resultFunc();
@@ -24,7 +24,7 @@ namespace Func
         public Task<Result<TResultValue>> Then<TResultValue>(Func<Task<Result<TResultValue>>> resultFunc) => resultFunc();
     }
 
-    internal class SuccessClass<TValue> : Success<TValue>
+    internal partial class SuccessClass<TValue> : Success<TValue>
     {
         public TValue Value { get; }
 

@@ -1,18 +1,10 @@
-﻿
-
-
-
-
-
-
-namespace Func
+﻿namespace Func
 {
 	using System;
 	using System.Threading.Tasks;
 	
 	public static class TeeExtensionMethods
 	{
-
 		public static Task<TValue1> Tee<TValue1>(this Task<TValue1> valueTask, Func<TValue1, Task> func) =>
 			valueTask.ContinueWith(async value1 =>
 			{
@@ -64,7 +56,6 @@ namespace Func
 			func(value1);
 			return value1;
 		}
-
 
 		public static Task<TValue2> Tee<TValue1, TValue2>(this Task<TValue2> valueTask, Func<TValue1, TValue2, Task> func, TValue1 value1) =>
 			valueTask.ContinueWith(async value2 =>
@@ -118,7 +109,6 @@ namespace Func
 			return value2;
 		}
 
-
 		public static Task<TValue3> Tee<TValue1, TValue2, TValue3>(this Task<TValue3> valueTask, Func<TValue1, TValue2, TValue3, Task> func, TValue1 value1, TValue2 value2) =>
 			valueTask.ContinueWith(async value3 =>
 			{
@@ -170,7 +160,6 @@ namespace Func
 			func(value1, value2, value3);
 			return value3;
 		}
-
 
 		public static Task<TValue4> Tee<TValue1, TValue2, TValue3, TValue4>(this Task<TValue4> valueTask, Func<TValue1, TValue2, TValue3, TValue4, Task> func, TValue1 value1, TValue2 value2, TValue3 value3) =>
 			valueTask.ContinueWith(async value4 =>
@@ -224,7 +213,6 @@ namespace Func
 			return value4;
 		}
 
-
 		public static Task<TValue5> Tee<TValue1, TValue2, TValue3, TValue4, TValue5>(this Task<TValue5> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4) =>
 			valueTask.ContinueWith(async value5 =>
 			{
@@ -277,7 +265,6 @@ namespace Func
 			return value5;
 		}
 
-
 		public static Task<TValue6> Tee<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(this Task<TValue6> valueTask, Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, Task> func, TValue1 value1, TValue2 value2, TValue3 value3, TValue4 value4, TValue5 value5) =>
 			valueTask.ContinueWith(async value6 =>
 			{
@@ -329,7 +316,6 @@ namespace Func
 			func(value1, value2, value3, value4, value5, value6);
 			return value6;
 		}
-
 
 	}
 }

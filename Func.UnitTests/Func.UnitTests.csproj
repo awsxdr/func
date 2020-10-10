@@ -12,6 +12,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>MapExtensionMethodsCurryTests.tt</DependentUpon>
     </None>
+    <None Include="ResultArgumentAdditionsTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResultArgumentAdditionsTests.tt</DependentUpon>
+    </None>
     <None Include="TeeExtensionMethodsCurryTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -43,13 +48,17 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CurryingTests.cs</LastGenOutput>
     </None>
-    <None Update="MapExtensionMethodsCurryTests.tt">
+    <None Update="MapExtensionMethodsArgumentAdditionsTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MapExtensionMethodsCurryTests.cs</LastGenOutput>
+      <LastGenOutput>MapExtensionMethodsArgumentAdditionsTests.cs</LastGenOutput>
     </None>
-    <None Update="TeeExtensionMethodsCurryTests.tt">
+    <None Update="ResultArgumentAdditionsTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TeeExtensionMethodsCurryTests.cs</LastGenOutput>
+      <LastGenOutput>ResultArgumentAdditionsTests.cs</LastGenOutput>
+    </None>
+    <None Update="TeeExtensionMethodsArgumentAdditionsTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TeeExtensionMethodsArgumentAdditionsTests.cs</LastGenOutput>
     </None>
     <None Update="UnionTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -67,15 +76,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CurryingTests.tt</DependentUpon>
     </Compile>
-    <Compile Update="MapExtensionMethodsCurryTests.cs">
+    <Compile Update="MapExtensionMethodsArgumentAdditionsTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>MapExtensionMethodsCurryTests.tt</DependentUpon>
+      <DependentUpon>MapExtensionMethodsArgumentAdditionsTests.tt</DependentUpon>
     </Compile>
-    <Compile Update="TeeExtensionMethodsCurryTests.cs">
+    <Compile Update="ResultArgumentAdditionsTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>TeeExtensionMethodsCurryTests.tt</DependentUpon>
+      <DependentUpon>ResultArgumentAdditionsTests.tt</DependentUpon>
+    </Compile>
+    <Compile Update="TeeExtensionMethodsArgumentAdditionsTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TeeExtensionMethodsArgumentAdditionsTests.tt</DependentUpon>
     </Compile>
     <Compile Update="UnionTests.cs">
       <DesignTime>True</DesignTime>
