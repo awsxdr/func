@@ -3,7 +3,7 @@
 # Func Reference
 
 * [`Result`](#result)
-    * [`.Succeed`](#result-succeed) (static)
+    * [`.Succeed`](#succeed-1) (static)
     * [`.Fail`](#result-fail) (static)
     * [`.CaptureResult`](#result-captureresult) (static)
     * [`.Then`](#result-then)
@@ -43,4 +43,28 @@ Creates a new `Result` object in a successful state. The result contains the val
 
 ```csharp
 public static Result Fail<TError>(TError error) where TError : ResultError
+```
+
+Creates a new `Result` object in a failed state. The result is untyped and contains the given error.
+
+```csharp
+public static Result Fail<TError>() where TError : ResultError, new()
+```
+
+Creates a new `Result` object in a failed state. The result is untyped and contains a new error of the given type constructed using the parameterless constructor.
+
+### `CaptureResult`
+
+```csharp
+public static Result CaptureResult<TError>(Action func, Func<Exception, TError> catchFunc) where TError : ResultError
+```
+
+Creates a new `Result` object based on the result of a function. 
+
+If the function throws an exception then a `Result` object in a failed state is returned. This `Result` is untyped and contains the error returned by `catchFunc`.
+
+If the function does not throw an error then a `Result` object in a successful state. This `Result` is untyped and contains no value.
+
+```csharp
+public static async Task<Result> CaptureResult<TError>(Func<Task> func, Func<Exception, TError> catchFunc) where TError : ResultError
 ```
