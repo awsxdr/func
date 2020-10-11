@@ -17,7 +17,7 @@
 * [`ResultHelper<>`](#resulthelper-generic)
     * [`.Fail`](#resulthelper-fail) (static)
 
-## `Result`
+## Result
 
 ```csharp
 public interface Result { ... }
@@ -25,7 +25,7 @@ public interface Result { ... }
 
 **Methods**
 
-### `Succeed`
+### Succeed
 
 ```csharp
 public static Result Succeed()
@@ -39,7 +39,7 @@ public static Result<TValue> Succeed<TValue>(TValue value)
 
 Creates a new `Result` object in a successful state. The result contains the value given by `value`.
 
-### `Fail`
+### Fail
 
 ```csharp
 public static Result Fail<TError>(TError error) where TError : ResultError
@@ -53,7 +53,7 @@ public static Result Fail<TError>() where TError : ResultError, new()
 
 Creates a new `Result` object in a failed state. The result is untyped and contains a new error of the given type constructed using the parameterless constructor.
 
-### `CaptureResult`
+### CaptureResult
 
 ```csharp
 public static Result CaptureResult<TError>(Action func, Func<Exception, TError> catchFunc) where TError : ResultError
