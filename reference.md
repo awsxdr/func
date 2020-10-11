@@ -2,6 +2,9 @@
 
 # Func Reference
 
+* [`Failure<,>`](#failuretvalue-terror)
+* [`None`](#none)
+* [`Option<>`](#optiontvalue)
 * [`Result`](#result)
     * [`.CaptureResult`](#captureresult)
     * [`.Fail`](#fail)
@@ -11,12 +14,18 @@
     * [`.Fail`](#fail-1)
     * [`.Then`](#then-1)
     * [`.ValueOr`](#valueor)
+* [`ResultError`](#resulterror)
 * [`ResultHelper`](#resulthelper)
     * [`.CaptureResult`](#captureresult-1)
     * [`.Fail`](#fail-2)
     * [`.Succeed`](#succeed-1)
 * [`ResultHelper<>`](#resulthelpertvalue)
     * [`.Fail`](#fail-3)
+* [`Some<>`](#sometvalue)
+* [`Success`](#success)
+* [`Success<>`](#successtvalue)
+* [`Union<>`](#union)
+* General extensions
 
 ## Result
 
