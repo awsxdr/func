@@ -3,19 +3,20 @@
 # Func Reference
 
 * [`Result`](#result)
-    * [`.CaptureResult`](#result-captureresult) (static)
-    * [`.Fail`](#result-fail) (static)
-    * [`.Succeed`](#succeed-1) (static)
-    * [`.Then`](#result-then)
-* [`Result<>`](#result-generic)
-    * [`.Then`](#result-generic-then)
-    * [`.ValueOr`](#result-generic-valueor)
+    * [`.CaptureResult`](#captureresult)
+    * [`.Fail`](#fail)
+    * [`.Succeed`](#succeed)
+    * [`.Then`](#then)
+* [`Result<>`](#resulttvalue)
+    * [`.Fail`](#fail-1)
+    * [`.Then`](#then-1)
+    * [`.ValueOr`](#valueor)
 * [`ResultHelper`](#resulthelper)
-    * [`.CaptureResult`](#resulthelper-captureresult) (static)
-    * [`.Fail`](#resulthelper-fail) (static)
-    * [`.Succeed`](#resulthelper-succeed) (static)
-* [`ResultHelper<>`](#resulthelper-generic)
-    * [`.Fail`](#resulthelper-fail) (static)
+    * [`.CaptureResult`](#captureresult-1)
+    * [`.Fail`](#fail-2)
+    * [`.Succeed`](#succeed-1)
+* [`ResultHelper<>`](#resulthelpertvalue)
+    * [`.Fail`](#fail-3)
 
 ## Result
 
@@ -29,7 +30,7 @@ public interface Result { ... }
 
 ---
 
-**Note**: This method is only available when using .NET Standard 2.1 or higher. For other .NET versions, see [ResultHelper.CaptureResult](#captureresult-2).
+**Note**: This method is only available when using .NET Standard 2.1 or higher. For other .NET versions, see [ResultHelper.CaptureResult](#captureresult-1).
 
 ---
 
@@ -71,7 +72,7 @@ public static async Task<Result<TValue>> CaptureResult<TValue, TError>(Func<Task
 
 ---
 
-**Note**: This method is only available when using .NET Standard 2.1 or higher. For other .NET versions, see [ResultHelper.Fail](#fail-3).
+**Note**: This method is only available when using .NET Standard 2.1 or higher. For other .NET versions, see [ResultHelper.Fail](#fail-2).
 
 ---
 
@@ -91,7 +92,7 @@ Creates a new `Result` object in a failed state. The result is untyped and conta
 
 ---
 
-**Note**: This method is only available when using .NET Standard 2.1 or higher. For other .NET versions, see [ResultHelper.Succeed](#succeed-2).
+**Note**: This method is only available when using .NET Standard 2.1 or higher. For other .NET versions, see [ResultHelper.Succeed](#succeed-1).
 
 ---
 
@@ -279,7 +280,7 @@ Creates a new `Result` object in a successful state. The result contains the val
 
 ---
 
-**Note**: This type is only available when using .NET Standard 2.0 or lower or .NET Framework. For .NET standard 2.1 or above, see [Result](#result).
+**Note**: This type is only available when using .NET Standard 2.0 or lower or .NET Framework. For .NET standard 2.1 or above, see [Result](#resulttvalue).
 
 ---
 
