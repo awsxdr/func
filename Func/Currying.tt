@@ -9,13 +9,18 @@ namespace Func
 {
 	using System;
 
+<# for(var i = 2; i <= ArgumentLimit; ++i) { #>
+	public delegate <# WriteValueFuncs(1, i); #>, TResult<# WriteClosingBrackets(i); #> CurriedFunc<<# WriteValueTypesReversed(i); #>, out TResult>(TArg<#= i #> arg<#= i #>);
+	public delegate <# WriteValueFuncs(2, i); #><# if(i > 2) { #>, <# } #>Action<TArg1><# WriteClosingBrackets(i - 1); #> CurriedAction<<# WriteValueTypesReversed(i); #>>(TArg<#= i #> arg<#= i #>);
+<# } #>
+
 	public static class Currying
 	{	
 <# for(var i = 2; i <= ArgumentLimit; ++i) { #>
-		public static <# WriteValueFuncs(i); #>Func<TValue<#= i #>, TResult<# WriteClosingBrackets(i); #> Curry<<# WriteValueTypes(i); #>, TResult>(Func<<# WriteValueTypes(i); #>, TResult> func) =>
+		public static CurriedFunc<<# WriteValueTypes(i); #>, TResult> Curry<<# WriteValueTypes(i); #>, TResult>(Func<<# WriteValueTypes(i); #>, TResult> func) =>
 			<# WriteValueLambdas(i); #>func(<# WriteValueArguments(i); #>);
 
-		public static <# WriteValueFuncs(i); #>Action<TValue<#= i #><# WriteClosingBrackets(i); #> Curry<<# WriteValueTypes(i); #>>(Action<<# WriteValueTypes(i); #>> func) =>
+		public static CurriedAction<<# WriteValueTypes(i); #>> Curry<<# WriteValueTypes(i); #>>(Action<<# WriteValueTypes(i); #>> func) =>
 			<# WriteValueLambdas(i); #>func(<# WriteValueArguments(i); #>);
 
 <# } #>
@@ -24,17 +29,22 @@ namespace Func
 <#+
 	void WriteValueTypes(int count)
 	{
-		for (var i = 1; i <= count; ++i) { #>TValue<#= i #><#+ if(i < count) { #>, <#+}}
+		for (var i = 1; i <= count; ++i) { #>TArg<#= i #><#+ if(i < count) { #>, <#+}}
 	}
 
-	void WriteValueFuncs(int count)
+	void WriteValueTypesReversed(int count)
 	{
-		for (var i = 1; i < count; ++i) { #>Func<TValue<#= i #>, <#+}
+		for (var i = count; i >= 1; --i) { #>in TArg<#= i #><#+ if(i > 1) { #>, <#+}}
+	}
+
+	void WriteValueFuncs(int start, int end)
+	{
+		for (var i = end - 1; i >= start; --i) { #>Func<TArg<#= i #><#+ if(i > start) { #>, <#+}}
 	}
 
 	void WriteClosingBrackets(int count)
 	{
-		for (var i = 0; i < count; ++i) { #>><#+}
+		for (var i = 1; i < count; ++i) { #>><#+}
 	}
 
 	void WriteValueLambdas(int count)

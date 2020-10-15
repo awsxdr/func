@@ -1,7 +1,6 @@
 ﻿namespace Func.UnitTests
 {
     using System;
-    using System.Threading.Tasks;
 
     using FluentAssertions;
     using NUnit.Framework;
@@ -9,7 +8,7 @@
     using static Currying;
 
     [TestFixture]
-    public partial class CurryingTests
+    public class CurryingTests
     {
         [Test]
         public void Curry_With2Arguments_CallsCurriedFunc()
