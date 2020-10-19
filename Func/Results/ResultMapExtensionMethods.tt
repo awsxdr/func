@@ -29,12 +29,6 @@ namespace Func
 
 		public static Result<TResult> ThenMap<<# WriteValueTypes(i); #>, TResult>(this Result<TValue<#= i #>> result, Func<<# WriteValueTypes(i); #>, TResult> func<# if(i > 1) { #>, <# } WriteValueTypesAndVariables(i - 1); #>) =>
 			result.Then(value<#= i #> => func(<# WriteValueVariables(i); #>).Map(Succeed));
-
-<# for(var j = 2; j < i; ++j) { #>
-		public static Func<<# WriteValueTypesWithOffset(j, i); #>, Result<TResult>> ThenMap<<# WriteValueTypes(i); #>, TResult>(this Result<TValue<#= j-1 #>> result, Func<<# WriteValueTypes(i); #>, TResult> func<# if(j > 2) { #>, <# } WriteValueTypesAndVariables(j - 2); #>) =>
-			(<# WriteValueVariablesWithOffset(j, i); #>) => result.Then(value<#= j-1 #> => func(<# WriteValueVariables(i); #>).Map(Succeed));
-
-<# } #>
 <# } #>
 	}
 }
