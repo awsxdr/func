@@ -1,11 +1,4 @@
-﻿
-
-
-
-
-
-
-namespace Func.UnitTests
+﻿namespace Func.UnitTests
 {
     using FluentAssertions;
     using NUnit.Framework;
@@ -14,7 +7,6 @@ namespace Func.UnitTests
     [TestFixture]
     public partial class MapExtensionMethodsTests
     {
-
         [Test]
         public void Map_Curries_With2Arguments()
         {
@@ -47,7 +39,6 @@ namespace Func.UnitTests
 
             result.Should().Be("1, 2");
         }
-
 
         [Test]
         public void Map_Curries_With3Arguments()
@@ -82,7 +73,6 @@ namespace Func.UnitTests
             result.Should().Be("1, 2, 3");
         }
 
-
         [Test]
         public void Map_Curries_With4Arguments()
         {
@@ -115,7 +105,6 @@ namespace Func.UnitTests
 
             result.Should().Be("1, 2, 3, 4");
         }
-
 
         [Test]
         public void Map_Curries_With5Arguments()
@@ -150,7 +139,6 @@ namespace Func.UnitTests
             result.Should().Be("1, 2, 3, 4, 5");
         }
 
-
         [Test]
         public void Map_Curries_With6Arguments()
         {
@@ -183,7 +171,6 @@ namespace Func.UnitTests
 
             result.Should().Be("1, 2, 3, 4, 5, 6");
         }
-
 
     }
 }
