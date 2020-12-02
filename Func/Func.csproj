@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -20,9 +20,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="PartialApplicationDelegates.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PartialApplicationDelegates.tt</DependentUpon>
+    </None>
+    <None Include="Union.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Union.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Currying.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Currying.cs</LastGenOutput>
+    </None>
+    <None Update="PartialApplicationDelegates.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PartialApplicationDelegates.cs</LastGenOutput>
     </None>
     <None Update="TeeExtensionMethods.tt">
       <LastGenOutput>TeeExtensionMethods.cs</LastGenOutput>
@@ -48,6 +65,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MapExtensionMethods.tt</DependentUpon>
+    </Compile>
+    <Compile Update="PartialApplicationDelegates.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PartialApplicationDelegates.tt</DependentUpon>
     </Compile>
     <Compile Update="TeeExtensionMethods.cs">
       <DesignTime>True</DesignTime>
