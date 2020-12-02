@@ -20,6 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="PartialApplicationDelegates.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PartialApplicationDelegates.tt</DependentUpon>
+    </None>
     <None Include="Results\ResultMapExtensionMethods.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -36,6 +41,10 @@
     <None Update="Currying.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Currying.cs</LastGenOutput>
+    </None>
+    <None Update="PartialApplicationDelegates.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PartialApplicationDelegates.cs</LastGenOutput>
     </None>
     <None Update="Results\ResultMapExtensionMethods.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -69,6 +78,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MapExtensionMethods.tt</DependentUpon>
+    </Compile>
+    <Compile Update="PartialApplicationDelegates.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PartialApplicationDelegates.tt</DependentUpon>
     </Compile>
     <Compile Update="Results\ResultMapExtensionMethods.cs">
       <DesignTime>True</DesignTime>
