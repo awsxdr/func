@@ -75,12 +75,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TeeExtensionMethods.tt</DependentUpon>
     </Compile>
+    <Compile Update="PartialApplicationDelegates.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PartialApplicationDelegates.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Results\ResultArgumentAdditions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResultArgumentAdditions.tt</DependentUpon>
+    </Compile>
     <Compile Update="Results\ResultMapExtensionMethods.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ResultMapExtensionMethods.tt</DependentUpon>
     </Compile>
-    <Compile Update="TeeExtensionMethods.cs">
     <Compile Update="Union.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
