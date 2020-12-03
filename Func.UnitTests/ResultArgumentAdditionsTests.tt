@@ -1,0 +1,149 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<# const int ArgumentLimit = 6; #>
+namespace Func.UnitTests
+{
+    using FluentAssertions;
+    using NUnit.Framework;
+    using System.Threading.Tasks;
+    using static Result;
+
+    [TestFixture]
+    public class ResultArgumentAdditionsTests
+    {
+<# for(var i = 1; i <= ArgumentLimit; ++i) { #>
+        [Test]
+        public void Then_With<#= i #>Arguments_ShouldReturnExpectedResult()
+        {
+            var result = Succeed().Then((<# WriteArguments(i); #>) => Succeed(<# WriteArgumentCalculation(i); #> + <#= i + 1 #>), <# WriteArgumentValues(i); #>);
+            ((Success<int>)result).Value.Should().Be(<#= (int)((i + 1) * ((i + 2) / 2.0)) #>);
+        }
+
+        [Test]
+        public void Then_With<#= i #>Arguments_ShouldReturnSuccess()
+        {
+            var result = Succeed().Then((<# WriteArguments(i); #>) => Succeed(), <# WriteArgumentValues(i); #>);
+            (result is Success).Should().BeTrue();
+        }
+
+        [Test]
+        public async Task Then_With<#= i #>Arguments_AndAsyncFunc_ShouldReturnExpectedResult()
+        {
+            var result = await Succeed().Then((<# WriteArguments(i); #>) => Succeed(<# WriteArgumentCalculation(i); #> + <#= i + 1 #>).ToTask(), <# WriteArgumentValues(i); #>);
+            ((Success<int>)result).Value.Should().Be(<#= (int)((i + 1) * ((i + 2) / 2.0)) #>);
+        }
+
+        [Test]
+        public async Task Then_With<#= i #>Arguments_AndAsyncFunc_ShouldReturnSuccess()
+        {
+            var result = await Succeed().Then((<# WriteArguments(i); #>) => Succeed().ToTask(), <# WriteArgumentValues(i); #>);
+            (result is Success).Should().BeTrue();
+        }
+
+        [Test]
+        public void ValueThen_With<#= i #>Arguments_ShouldReturnExpectedResult()
+        {
+            var result = Succeed(<#= i + 1 #>).Then((<# WriteArguments(i + 1); #>) => Succeed(<# WriteArgumentCalculation(i + 1); #>), <# WriteArgumentValues(i); #>);
+            ((Success<int>)result).Value.Should().Be(<#= (int)((i + 1) * ((i + 2) / 2.0)) #>);
+        }
+
+        [Test]
+        public void ValueThen_With<#= i #>Arguments_ShouldReturnSuccess()
+        {
+            var result = Succeed(<#= i + 1 #>).Then((<# WriteArguments(i); #>) => Succeed(), <# WriteArgumentValues(i); #>);
+            (result is Success).Should().BeTrue();
+        }
+
+        [Test]
+        public async Task ValueThen_With<#= i #>Argument_AndAsyncFunc_ShouldReturnExpectedResult()
+        {
+            var result = await Succeed(<#= i + 1 #>).Then((<# WriteArguments(i + 1); #>) => Succeed(<# WriteArgumentCalculation(i + 1); #>).ToTask(), <# WriteArgumentValues(i); #>);
+            ((Success<int>)result).Value.Should().Be(<#= (int)((i + 1) * ((i + 2) / 2.0)) #>);
+        }
+
+        [Test]
+        public async Task ValueThen_With<#= i #>Arguments_AndAsyncFunc_ShouldReturnSuccess()
+        {
+            var result = await Succeed(<#= i + 1 #>).Then((<# WriteArguments(i); #>) => Succeed().ToTask(), <# WriteArgumentValues(i); #>);
+            (result is Success).Should().BeTrue();
+        }
+
+        [Test]
+        public async Task AsyncThen_With<#= i #>Arguments_ShouldReturnExpectedResult()
+        {
+            var result = await Succeed().ToTask().Then((<# WriteArguments(i); #>) => Succeed(<# WriteArgumentCalculation(i); #> + <#= i + 1 #>), <# WriteArgumentValues(i); #>);
+            ((Success<int>)result).Value.Should().Be(<#= (int)((i + 1) * ((i + 2) / 2.0)) #>);
+        }
+
+        [Test]
+        public async Task AsyncThen_With<#= i #>Arguments_ShouldReturnSuccess()
+        {
+            var result = await Succeed().ToTask().Then((<# WriteArguments(i); #>) => Succeed(), <# WriteArgumentValues(i); #>);
+            (result is Success).Should().BeTrue();
+        }
+
+        [Test]
+        public async Task AsyncThen_With<#= i #>Arguments_AndAsyncFunc_ShouldReturnExpectedResult()
+        {
+            var result = await Succeed().ToTask().Then((<# WriteArguments(i); #>) => Succeed(<# WriteArgumentCalculation(i); #> + <#= i + 1 #>).ToTask(), <# WriteArgumentValues(i); #>);
+            ((Success<int>)result).Value.Should().Be(<#= (int)((i + 1) * ((i + 2) / 2.0)) #>);
+        }
+
+        [Test]
+        public async Task AsyncThen_With<#= i #>Arguments_AndAsyncFunc_ShouldReturnSuccess()
+        {
+            var result = await Succeed().ToTask().Then((<# WriteArguments(i); #>) => Succeed().ToTask(), <# WriteArgumentValues(i); #>);
+            (result is Success).Should().BeTrue();
+        }
+
+        [Test]
+        public async Task AsyncValueThen_With<#= i #>Arguments_ShouldReturnExpectedResult()
+        {
+            var result = await Succeed(<#= i + 1 #>).ToTask().Then((<# WriteArguments(i + 1); #>) => Succeed(<# WriteArgumentCalculation(i + 1); #>), <# WriteArgumentValues(i); #>);
+            ((Success<int>)result).Value.Should().Be(<#= (int)((i + 1) * ((i + 2) / 2.0)) #>);
+        }
+
+        [Test]
+        public async Task AsyncValueThen_With<#= i #>Arguments_ShouldReturnSuccess()
+        {
+            var result = await Succeed(<#= i + 1 #>).ToTask().Then((<# WriteArguments(i + 1); #>) => Succeed(), <# WriteArgumentValues(i); #>);
+            (result is Success).Should().BeTrue();
+        }
+
+        [Test]
+        public async Task AsyncValueThen_With<#= i #>Argument_AndAsyncFunc_ShouldReturnExpectedResult()
+        {
+            var result = await Succeed(<#= i + 1 #>).ToTask().Then((<# WriteArguments(i + 1); #>) => Succeed(<# WriteArgumentCalculation(i + 1); #>).ToTask(), <# WriteArgumentValues(i); #>);
+            ((Success<int>)result).Value.Should().Be(<#= (int)((i + 1) * ((i + 2) / 2.0)) #>);
+        }
+
+        [Test]
+        public async Task AsyncValueThen_With<#= i #>Arguments_AndAsyncFunc_ShouldReturnSuccess()
+        {
+            var result = await Succeed(<#= i + 1 #>).ToTask().Then((<# WriteArguments(i + 1); #>) => Succeed().ToTask(), <# WriteArgumentValues(i); #>);
+            (result is Success).Should().BeTrue();
+        }
+
+<# } #>
+    }
+}
+<#+
+	void WriteArguments(int count)
+	{
+		for (var i = 1; i <= count; ++i) { #>int arg<#= i #><#+ if(i < count) { #>, <#+}}
+	}
+
+    void WriteArgumentValues(int count)
+	{
+		for (var i = 1; i <= count; ++i) { #><#= i #><#+ if(i < count) { #>, <#+}}
+	}
+
+    void WriteArgumentCalculation(int count)
+    {
+        for (var i = 1; i <= count; ++i) { #>arg<#= i #><#+ if(i < count) { #> + <#+}}
+    }
+#>

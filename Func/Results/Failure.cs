@@ -15,7 +15,7 @@ namespace Func
         TError Error { get; }
     }
 
-    internal class FailureClass<TValue, TError> : Result<TValue>, Failure<TError> where TError : ResultError
+    internal partial class FailureClass<TValue, TError> : Result<TValue>, Failure<TError> where TError : ResultError
     {
         public TError Error { get; }
 

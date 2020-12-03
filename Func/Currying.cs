@@ -2,90 +2,119 @@
 {
 	using System;
 
+	public delegate Func<TArg1, TResult> CurriedFunc<in TArg2, in TArg1, out TResult>(TArg2 arg2);
+	public delegate Action<TArg1> CurriedAction<in TArg2, in TArg1>(TArg2 arg2);
+	public delegate Func<TArg2, Func<TArg1, TResult>> CurriedFunc<in TArg3, in TArg2, in TArg1, out TResult>(TArg3 arg3);
+	public delegate Func<TArg2, Action<TArg1>> CurriedAction<in TArg3, in TArg2, in TArg1>(TArg3 arg3);
+	public delegate Func<TArg3, Func<TArg2, Func<TArg1, TResult>>> CurriedFunc<in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg4 arg4);
+	public delegate Func<TArg3, Func<TArg2, Action<TArg1>>> CurriedAction<in TArg4, in TArg3, in TArg2, in TArg1>(TArg4 arg4);
+	public delegate Func<TArg4, Func<TArg3, Func<TArg2, Func<TArg1, TResult>>>> CurriedFunc<in TArg5, in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg5 arg5);
+	public delegate Func<TArg4, Func<TArg3, Func<TArg2, Action<TArg1>>>> CurriedAction<in TArg5, in TArg4, in TArg3, in TArg2, in TArg1>(TArg5 arg5);
+	public delegate Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Func<TArg1, TResult>>>>> CurriedFunc<in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg6 arg6);
+	public delegate Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Action<TArg1>>>>> CurriedAction<in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1>(TArg6 arg6);
+	public delegate Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Func<TArg1, TResult>>>>>> CurriedFunc<in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg7 arg7);
+	public delegate Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Action<TArg1>>>>>> CurriedAction<in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1>(TArg7 arg7);
+	public delegate Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Func<TArg1, TResult>>>>>>> CurriedFunc<in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg8 arg8);
+	public delegate Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Action<TArg1>>>>>>> CurriedAction<in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1>(TArg8 arg8);
+	public delegate Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Func<TArg1, TResult>>>>>>>> CurriedFunc<in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg9 arg9);
+	public delegate Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Action<TArg1>>>>>>>> CurriedAction<in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1>(TArg9 arg9);
+	public delegate Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Func<TArg1, TResult>>>>>>>>> CurriedFunc<in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg10 arg10);
+	public delegate Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Action<TArg1>>>>>>>>> CurriedAction<in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1>(TArg10 arg10);
+	public delegate Func<TArg10, Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Func<TArg1, TResult>>>>>>>>>> CurriedFunc<in TArg11, in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg11 arg11);
+	public delegate Func<TArg10, Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Action<TArg1>>>>>>>>>> CurriedAction<in TArg11, in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1>(TArg11 arg11);
+	public delegate Func<TArg11, Func<TArg10, Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Func<TArg1, TResult>>>>>>>>>>> CurriedFunc<in TArg12, in TArg11, in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg12 arg12);
+	public delegate Func<TArg11, Func<TArg10, Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Action<TArg1>>>>>>>>>>> CurriedAction<in TArg12, in TArg11, in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1>(TArg12 arg12);
+	public delegate Func<TArg12, Func<TArg11, Func<TArg10, Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Func<TArg1, TResult>>>>>>>>>>>> CurriedFunc<in TArg13, in TArg12, in TArg11, in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg13 arg13);
+	public delegate Func<TArg12, Func<TArg11, Func<TArg10, Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Action<TArg1>>>>>>>>>>>> CurriedAction<in TArg13, in TArg12, in TArg11, in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1>(TArg13 arg13);
+	public delegate Func<TArg13, Func<TArg12, Func<TArg11, Func<TArg10, Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Func<TArg1, TResult>>>>>>>>>>>>> CurriedFunc<in TArg14, in TArg13, in TArg12, in TArg11, in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg14 arg14);
+	public delegate Func<TArg13, Func<TArg12, Func<TArg11, Func<TArg10, Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Action<TArg1>>>>>>>>>>>>> CurriedAction<in TArg14, in TArg13, in TArg12, in TArg11, in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1>(TArg14 arg14);
+	public delegate Func<TArg14, Func<TArg13, Func<TArg12, Func<TArg11, Func<TArg10, Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Func<TArg1, TResult>>>>>>>>>>>>>> CurriedFunc<in TArg15, in TArg14, in TArg13, in TArg12, in TArg11, in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1, out TResult>(TArg15 arg15);
+	public delegate Func<TArg14, Func<TArg13, Func<TArg12, Func<TArg11, Func<TArg10, Func<TArg9, Func<TArg8, Func<TArg7, Func<TArg6, Func<TArg5, Func<TArg4, Func<TArg3, Func<TArg2, Action<TArg1>>>>>>>>>>>>>> CurriedAction<in TArg15, in TArg14, in TArg13, in TArg12, in TArg11, in TArg10, in TArg9, in TArg8, in TArg7, in TArg6, in TArg5, in TArg4, in TArg3, in TArg2, in TArg1>(TArg15 arg15);
+
 	public static class Currying
 	{	
-		public static Func<TValue1, Func<TValue2, TResult>> Curry<TValue1, TValue2, TResult>(Func<TValue1, TValue2, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TResult> Curry<TArg1, TArg2, TResult>(Func<TArg1, TArg2, TResult> func) =>
 			value1 => value2 => func(value1, value2);
 
-		public static Func<TValue1, Action<TValue2>> Curry<TValue1, TValue2>(Action<TValue1, TValue2> func) =>
+		public static CurriedAction<TArg1, TArg2> Curry<TArg1, TArg2>(Action<TArg1, TArg2> func) =>
 			value1 => value2 => func(value1, value2);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, TResult>>> Curry<TValue1, TValue2, TValue3, TResult>(Func<TValue1, TValue2, TValue3, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TResult> Curry<TArg1, TArg2, TArg3, TResult>(Func<TArg1, TArg2, TArg3, TResult> func) =>
 			value1 => value2 => value3 => func(value1, value2, value3);
 
-		public static Func<TValue1, Func<TValue2, Action<TValue3>>> Curry<TValue1, TValue2, TValue3>(Action<TValue1, TValue2, TValue3> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3> Curry<TArg1, TArg2, TArg3>(Action<TArg1, TArg2, TArg3> func) =>
 			value1 => value2 => value3 => func(value1, value2, value3);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, TResult>>>> Curry<TValue1, TValue2, TValue3, TValue4, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TResult> func) =>
 			value1 => value2 => value3 => value4 => func(value1, value2, value3, value4);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Action<TValue4>>>> Curry<TValue1, TValue2, TValue3, TValue4>(Action<TValue1, TValue2, TValue3, TValue4> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4> Curry<TArg1, TArg2, TArg3, TArg4>(Action<TArg1, TArg2, TArg3, TArg4> func) =>
 			value1 => value2 => value3 => value4 => func(value1, value2, value3, value4);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, TResult>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TValue5, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TArg5, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TResult> func) =>
 			value1 => value2 => value3 => value4 => value5 => func(value1, value2, value3, value4, value5);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Action<TValue5>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5>(Action<TValue1, TValue2, TValue3, TValue4, TValue5> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4, TArg5> Curry<TArg1, TArg2, TArg3, TArg4, TArg5>(Action<TArg1, TArg2, TArg3, TArg4, TArg5> func) =>
 			value1 => value2 => value3 => value4 => value5 => func(value1, value2, value3, value4, value5);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, TResult>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TResult> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => func(value1, value2, value3, value4, value5, value6);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Action<TValue6>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6>(Action<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6>(Action<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => func(value1, value2, value3, value4, value5, value6);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, TResult>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TResult> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => func(value1, value2, value3, value4, value5, value6, value7);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Action<TValue7>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7>(Action<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7>(Action<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => func(value1, value2, value3, value4, value5, value6, value7);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, TResult>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TResult> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => func(value1, value2, value3, value4, value5, value6, value7, value8);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Action<TValue8>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8>(Action<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8>(Action<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => func(value1, value2, value3, value4, value5, value6, value7, value8);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, TResult>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TResult> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Action<TValue9>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9>(Action<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9>(Action<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Func<TValue10, TResult>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TResult> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Action<TValue10>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10>(Action<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10>(Action<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Func<TValue10, Func<TValue11, TResult>>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TResult> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => value11 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Func<TValue10, Action<TValue11>>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11>(Action<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11>(Action<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => value11 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Func<TValue10, Func<TValue11, Func<TValue12, TResult>>>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TResult> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => value11 => value12 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Func<TValue10, Func<TValue11, Action<TValue12>>>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12>(Action<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12>(Action<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => value11 => value12 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Func<TValue10, Func<TValue11, Func<TValue12, Func<TValue13, TResult>>>>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TResult> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => value11 => value12 => value13 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Func<TValue10, Func<TValue11, Func<TValue12, Action<TValue13>>>>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13>(Action<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13>(Action<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => value11 => value12 => value13 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Func<TValue10, Func<TValue11, Func<TValue12, Func<TValue13, Func<TValue14, TResult>>>>>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TResult> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => value11 => value12 => value13 => value14 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Func<TValue10, Func<TValue11, Func<TValue12, Func<TValue13, Action<TValue14>>>>>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14>(Action<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14>(Action<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => value11 => value12 => value13 => value14 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Func<TValue10, Func<TValue11, Func<TValue12, Func<TValue13, Func<TValue14, Func<TValue15, TResult>>>>>>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14, TValue15, TResult>(Func<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14, TValue15, TResult> func) =>
+		public static CurriedFunc<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, TResult> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, TResult>(Func<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15, TResult> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => value11 => value12 => value13 => value14 => value15 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14, value15);
 
-		public static Func<TValue1, Func<TValue2, Func<TValue3, Func<TValue4, Func<TValue5, Func<TValue6, Func<TValue7, Func<TValue8, Func<TValue9, Func<TValue10, Func<TValue11, Func<TValue12, Func<TValue13, Func<TValue14, Action<TValue15>>>>>>>>>>>>>>> Curry<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14, TValue15>(Action<TValue1, TValue2, TValue3, TValue4, TValue5, TValue6, TValue7, TValue8, TValue9, TValue10, TValue11, TValue12, TValue13, TValue14, TValue15> func) =>
+		public static CurriedAction<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15> Curry<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15>(Action<TArg1, TArg2, TArg3, TArg4, TArg5, TArg6, TArg7, TArg8, TArg9, TArg10, TArg11, TArg12, TArg13, TArg14, TArg15> func) =>
 			value1 => value2 => value3 => value4 => value5 => value6 => value7 => value8 => value9 => value10 => value11 => value12 => value13 => value14 => value15 => func(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14, value15);
 
 	}

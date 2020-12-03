@@ -8,7 +8,7 @@ namespace Func
 #if !NETSTANDARD2_1
     public static class ResultHelper
 #else
-    public interface Result
+    public partial interface Result
 #endif
     {
         public static Result Succeed() =>
@@ -85,7 +85,7 @@ namespace Func
 #if !NETSTANDARD2_1
     }
 
-    public interface Result
+    public partial interface Result
     {
 #endif
         Result Then(Func<Result> resultFunc);
@@ -95,7 +95,7 @@ namespace Func
     }
 
 #if NETSTANDARD2_1
-    public interface Result<TValue> : Result
+    public partial interface Result<TValue> : Result
 #else
     public static class ResultHelper<TValue>
 #endif
@@ -108,7 +108,7 @@ namespace Func
 #if !NETSTANDARD2_1
     }
 
-    public interface Result<TValue> : Result
+    public partial interface Result<TValue> : Result
     {
 #endif
         Task<Result> Then(Func<TValue, Task<Result>> resultFunc);

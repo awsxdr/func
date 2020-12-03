@@ -1,0 +1,27 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<# const int ArgumentLimit = 15; #>
+namespace Func
+{
+	using System;
+
+<# for(var i = 2; i <= ArgumentLimit; ++i) { #>
+	public delegate Func<TArg<#= i #>, TResult> PartialFunc<<# WriteValueTypes(i); #>, out TResult>(<# WriteArguments(i - 1); #>);
+<# } #>
+}
+
+<#+ 
+	void WriteValueTypes(int count)
+	{
+		for (var i = 1; i <= count; ++i) { #>in TArg<#= i #><#+ if(i < count) { #>, <#+}}
+	}
+
+	void WriteArguments(int count)
+	{
+		for (var i = 1; i <= count; ++i) { #>TArg<#= i #> arg<#= i #><#+ if(i < count) { #>, <#+}}
+	}
+#>

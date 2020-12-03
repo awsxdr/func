@@ -4,7 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-<# const int CurryLimit = 6; #>
+<# const int ArgumentLimit = 6; #>
 namespace Func.UnitTests
 {
     using FluentAssertions;
@@ -14,7 +14,7 @@ namespace Func.UnitTests
     [TestFixture]
     public partial class TeeExtensionMethodsTests
     {
-<# for(var i = 2; i <= CurryLimit; ++i) { #>
+<# for(var i = 2; i <= ArgumentLimit; ++i) { #>
         [Test]
         public void Tee_Curries_With<#= i #>ArgumentsInAction()
         {

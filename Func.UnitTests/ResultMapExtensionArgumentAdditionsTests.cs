@@ -1,189 +1,178 @@
-﻿
-
-
-
-
-
-
-namespace Func.UnitTests
+﻿namespace Func.UnitTests
 {
     using FluentAssertions;
     using NUnit.Framework;
     using System.Threading.Tasks;
 
+    using static Func.Result;
+
     [TestFixture]
     public partial class MapExtensionMethodsTests
     {
-
         [Test]
-        public void Map_Curries_With2Arguments()
+        public void ThenMap_Curries_With2Arguments()
         {
             static string TestMethod(int argument1, int argument2) =>
                 $"{argument1}, {argument2}";
 
-            var result = 2.Map(TestMethod, 1);
+            var result = Succeed(2).ThenMap(TestMethod, 1);
 
-            result.Should().Be("1, 2");
+            ((Success<string>)result).Value.Should().Be("1, 2");
         }
 
         [Test]
-        public async Task Map_CurriesFromTask_With2Arguments()
+        public async Task ThenMap_CurriesFromTask_With2Arguments()
         {
             static string TestMethod(int argument1, int argument2) =>
                 $"{argument1}, {argument2}";
 
-            var result = await Task.FromResult(2).Map(TestMethod, 1);
+            var result = await Succeed(2).ToTask().ThenMap(TestMethod, 1);
 
-            result.Should().Be("1, 2");
+            ((Success<string>)result).Value.Should().Be("1, 2");
         }
 
         [Test]
-        public async Task Map_CurriesFromTaskWithTask_With2Arguments()
+        public async Task ThenMap_CurriesFromTaskWithTask_With2Arguments()
         {
             static Task<string> TestMethod(int argument1, int argument2) =>
                 Task.FromResult($"{argument1}, {argument2}");
 
-            var result = await Task.FromResult(2).Map(TestMethod, 1);
+            var result = await Succeed(2).ToTask().ThenMap(TestMethod, 1);
 
-            result.Should().Be("1, 2");
+            ((Success<string>)result).Value.Should().Be("1, 2");
         }
 
-
         [Test]
-        public void Map_Curries_With3Arguments()
+        public void ThenMap_Curries_With3Arguments()
         {
             static string TestMethod(int argument1, int argument2, int argument3) =>
                 $"{argument1}, {argument2}, {argument3}";
 
-            var result = 3.Map(TestMethod, 1, 2);
+            var result = Succeed(3).ThenMap(TestMethod, 1, 2);
 
-            result.Should().Be("1, 2, 3");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3");
         }
 
         [Test]
-        public async Task Map_CurriesFromTask_With3Arguments()
+        public async Task ThenMap_CurriesFromTask_With3Arguments()
         {
             static string TestMethod(int argument1, int argument2, int argument3) =>
                 $"{argument1}, {argument2}, {argument3}";
 
-            var result = await Task.FromResult(3).Map(TestMethod, 1, 2);
+            var result = await Succeed(3).ToTask().ThenMap(TestMethod, 1, 2);
 
-            result.Should().Be("1, 2, 3");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3");
         }
 
         [Test]
-        public async Task Map_CurriesFromTaskWithTask_With3Arguments()
+        public async Task ThenMap_CurriesFromTaskWithTask_With3Arguments()
         {
             static Task<string> TestMethod(int argument1, int argument2, int argument3) =>
                 Task.FromResult($"{argument1}, {argument2}, {argument3}");
 
-            var result = await Task.FromResult(3).Map(TestMethod, 1, 2);
+            var result = await Succeed(3).ToTask().ThenMap(TestMethod, 1, 2);
 
-            result.Should().Be("1, 2, 3");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3");
         }
 
-
         [Test]
-        public void Map_Curries_With4Arguments()
+        public void ThenMap_Curries_With4Arguments()
         {
             static string TestMethod(int argument1, int argument2, int argument3, int argument4) =>
                 $"{argument1}, {argument2}, {argument3}, {argument4}";
 
-            var result = 4.Map(TestMethod, 1, 2, 3);
+            var result = Succeed(4).ThenMap(TestMethod, 1, 2, 3);
 
-            result.Should().Be("1, 2, 3, 4");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3, 4");
         }
 
         [Test]
-        public async Task Map_CurriesFromTask_With4Arguments()
+        public async Task ThenMap_CurriesFromTask_With4Arguments()
         {
             static string TestMethod(int argument1, int argument2, int argument3, int argument4) =>
                 $"{argument1}, {argument2}, {argument3}, {argument4}";
 
-            var result = await Task.FromResult(4).Map(TestMethod, 1, 2, 3);
+            var result = await Succeed(4).ToTask().ThenMap(TestMethod, 1, 2, 3);
 
-            result.Should().Be("1, 2, 3, 4");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3, 4");
         }
 
         [Test]
-        public async Task Map_CurriesFromTaskWithTask_With4Arguments()
+        public async Task ThenMap_CurriesFromTaskWithTask_With4Arguments()
         {
             static Task<string> TestMethod(int argument1, int argument2, int argument3, int argument4) =>
                 Task.FromResult($"{argument1}, {argument2}, {argument3}, {argument4}");
 
-            var result = await Task.FromResult(4).Map(TestMethod, 1, 2, 3);
+            var result = await Succeed(4).ToTask().ThenMap(TestMethod, 1, 2, 3);
 
-            result.Should().Be("1, 2, 3, 4");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3, 4");
         }
 
-
         [Test]
-        public void Map_Curries_With5Arguments()
+        public void ThenMap_Curries_With5Arguments()
         {
             static string TestMethod(int argument1, int argument2, int argument3, int argument4, int argument5) =>
                 $"{argument1}, {argument2}, {argument3}, {argument4}, {argument5}";
 
-            var result = 5.Map(TestMethod, 1, 2, 3, 4);
+            var result = Succeed(5).ThenMap(TestMethod, 1, 2, 3, 4);
 
-            result.Should().Be("1, 2, 3, 4, 5");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3, 4, 5");
         }
 
         [Test]
-        public async Task Map_CurriesFromTask_With5Arguments()
+        public async Task ThenMap_CurriesFromTask_With5Arguments()
         {
             static string TestMethod(int argument1, int argument2, int argument3, int argument4, int argument5) =>
                 $"{argument1}, {argument2}, {argument3}, {argument4}, {argument5}";
 
-            var result = await Task.FromResult(5).Map(TestMethod, 1, 2, 3, 4);
+            var result = await Succeed(5).ToTask().ThenMap(TestMethod, 1, 2, 3, 4);
 
-            result.Should().Be("1, 2, 3, 4, 5");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3, 4, 5");
         }
 
         [Test]
-        public async Task Map_CurriesFromTaskWithTask_With5Arguments()
+        public async Task ThenMap_CurriesFromTaskWithTask_With5Arguments()
         {
             static Task<string> TestMethod(int argument1, int argument2, int argument3, int argument4, int argument5) =>
                 Task.FromResult($"{argument1}, {argument2}, {argument3}, {argument4}, {argument5}");
 
-            var result = await Task.FromResult(5).Map(TestMethod, 1, 2, 3, 4);
+            var result = await Succeed(5).ToTask().ThenMap(TestMethod, 1, 2, 3, 4);
 
-            result.Should().Be("1, 2, 3, 4, 5");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3, 4, 5");
         }
 
-
         [Test]
-        public void Map_Curries_With6Arguments()
+        public void ThenMap_Curries_With6Arguments()
         {
             static string TestMethod(int argument1, int argument2, int argument3, int argument4, int argument5, int argument6) =>
                 $"{argument1}, {argument2}, {argument3}, {argument4}, {argument5}, {argument6}";
 
-            var result = 6.Map(TestMethod, 1, 2, 3, 4, 5);
+            var result = Succeed(6).ThenMap(TestMethod, 1, 2, 3, 4, 5);
 
-            result.Should().Be("1, 2, 3, 4, 5, 6");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3, 4, 5, 6");
         }
 
         [Test]
-        public async Task Map_CurriesFromTask_With6Arguments()
+        public async Task ThenMap_CurriesFromTask_With6Arguments()
         {
             static string TestMethod(int argument1, int argument2, int argument3, int argument4, int argument5, int argument6) =>
                 $"{argument1}, {argument2}, {argument3}, {argument4}, {argument5}, {argument6}";
 
-            var result = await Task.FromResult(6).Map(TestMethod, 1, 2, 3, 4, 5);
+            var result = await Succeed(6).ToTask().ThenMap(TestMethod, 1, 2, 3, 4, 5);
 
-            result.Should().Be("1, 2, 3, 4, 5, 6");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3, 4, 5, 6");
         }
 
         [Test]
-        public async Task Map_CurriesFromTaskWithTask_With6Arguments()
+        public async Task ThenMap_CurriesFromTaskWithTask_With6Arguments()
         {
             static Task<string> TestMethod(int argument1, int argument2, int argument3, int argument4, int argument5, int argument6) =>
                 Task.FromResult($"{argument1}, {argument2}, {argument3}, {argument4}, {argument5}, {argument6}");
 
-            var result = await Task.FromResult(6).Map(TestMethod, 1, 2, 3, 4, 5);
+            var result = await Succeed(6).ToTask().ThenMap(TestMethod, 1, 2, 3, 4, 5);
 
-            result.Should().Be("1, 2, 3, 4, 5, 6");
+            ((Success<string>)result).Value.Should().Be("1, 2, 3, 4, 5, 6");
         }
-
 
     }
 }
