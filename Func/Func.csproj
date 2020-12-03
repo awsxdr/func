@@ -25,6 +25,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>PartialApplicationDelegates.tt</DependentUpon>
     </None>
+    <None Include="Results\ResultMapExtensionMethods.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResultMapExtensionMethods.tt</DependentUpon>
+    </None>
     <None Include="Union.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -40,6 +45,10 @@
     <None Update="PartialApplicationDelegates.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PartialApplicationDelegates.cs</LastGenOutput>
+    </None>
+    <None Update="Results\ResultMapExtensionMethods.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ResultMapExtensionMethods.cs</LastGenOutput>
     </None>
     <None Update="TeeExtensionMethods.tt">
       <LastGenOutput>TeeExtensionMethods.cs</LastGenOutput>
@@ -70,6 +79,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>PartialApplicationDelegates.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Results\ResultMapExtensionMethods.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResultMapExtensionMethods.tt</DependentUpon>
     </Compile>
     <Compile Update="TeeExtensionMethods.cs">
       <DesignTime>True</DesignTime>
