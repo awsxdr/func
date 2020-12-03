@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;netstandard2.0;net45</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion>0.0.1.0</AssemblyVersion>
@@ -20,11 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="PartialApplicationDelegates.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>PartialApplicationDelegates.tt</DependentUpon>
-    </None>
     <None Include="Union.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -37,10 +32,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Currying.cs</LastGenOutput>
     </None>
-    <None Update="PartialApplicationDelegates.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PartialApplicationDelegates.cs</LastGenOutput>
-    </None>
     <None Update="TeeExtensionMethods.tt">
       <LastGenOutput>TeeExtensionMethods.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -48,6 +39,10 @@
     <None Update="MapExtensionMethods.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapExtensionMethods.cs</LastGenOutput>
+    </None>
+    <None Update="Union.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Union.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -66,15 +61,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>MapExtensionMethods.tt</DependentUpon>
     </Compile>
-    <Compile Update="PartialApplicationDelegates.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>PartialApplicationDelegates.tt</DependentUpon>
-    </Compile>
     <Compile Update="TeeExtensionMethods.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TeeExtensionMethods.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Union.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Union.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
