@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="MapExtensionMethodsCurryTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MapExtensionMethodsCurryTests.tt</DependentUpon>
+    </None>
+    <None Include="ResultMapExtensionArgumentAdditionsTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResultMapExtensionArgumentAdditionsTests.tt</DependentUpon>
+    </None>
+    <None Include="TeeExtensionMethodsCurryTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TeeExtensionMethodsCurryTests.tt</DependentUpon>
+    </None>
     <None Include="UnionTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -37,6 +52,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapExtensionMethodsCurryTests.cs</LastGenOutput>
     </None>
+    <None Update="ResultMapExtensionArgumentAdditionsTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ResultMapExtensionArgumentAdditionsTests.cs</LastGenOutput>
+    </None>
     <None Update="TeeExtensionMethodsCurryTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TeeExtensionMethodsCurryTests.cs</LastGenOutput>
@@ -61,6 +80,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MapExtensionMethodsCurryTests.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ResultMapExtensionArgumentAdditionsTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResultMapExtensionArgumentAdditionsTests.tt</DependentUpon>
     </Compile>
     <Compile Update="TeeExtensionMethodsCurryTests.cs">
       <DesignTime>True</DesignTime>
