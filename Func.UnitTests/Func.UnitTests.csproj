@@ -7,20 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="MapExtensionMethodsCurryTests.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MapExtensionMethodsCurryTests.tt</DependentUpon>
-    </None>
     <None Include="ResultMapExtensionArgumentAdditionsTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ResultMapExtensionArgumentAdditionsTests.tt</DependentUpon>
-    </None>
-    <None Include="TeeExtensionMethodsCurryTests.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TeeExtensionMethodsCurryTests.tt</DependentUpon>
     </None>
     <None Include="UnionTests.cs">
       <DesignTime>True</DesignTime>

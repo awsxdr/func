@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <None Remove="MapExtensionMethods.tt~RF14e8acba.TMP" />
+    <None Remove="TupleExtensionMethods.tt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +31,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Union.tt</DependentUpon>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +54,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapExtensionMethods.cs</LastGenOutput>
     </None>
+	<None Include="TupleExtensionMethods.tt">
+	  <Generator>TextTemplatingFileGenerator</Generator>
+	  <LastGenOutput>TupleExtensionMethods.cs</LastGenOutput>
+	</None>
     <None Update="Union.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Union.cs</LastGenOutput>
@@ -89,6 +98,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ResultMapExtensionMethods.tt</DependentUpon>
+    </Compile>
+    <Compile Update="TupleExtensionMethods.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TupleExtensionMethods.tt</DependentUpon>
     </Compile>
     <Compile Update="Union.cs">
       <DesignTime>True</DesignTime>

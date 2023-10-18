@@ -581,8 +581,8 @@
         {
             var result = Succeed(123) as Success;
             var value = result.GetValue();
-            value.Should().BeAssignableTo<Some<object>>();
-            (value as Some<object>).Value.Should().Be(123);
+            value.Should().BeAssignableTo<Some<object>>()
+                .Which.Value.Should().Be(123);
         }
 
         [Test]
@@ -597,8 +597,8 @@
         {
             var result = Fail(new TestError() { Data = 321 }) as Failure;
             var error = result.GetError();
-            error.Should().BeAssignableTo<TestError>();
-            (error as TestError).Data.Should().Be(321);
+            error.Should().BeAssignableTo<TestError>()
+                .Which.Data.Should().Be(321);
         }
 
         [Test]
@@ -606,8 +606,176 @@
         {
             var result = Result<int>.Fail(new TestError() { Data = 321 }) as Failure;
             var error = result.GetError();
-            error.Should().BeAssignableTo<TestError>();
-            (error as TestError).Data.Should().Be(321);
+            error.Should().BeAssignableTo<TestError>()
+                .Which.Data.Should().Be(321);
+        }
+
+        [Test]
+        public void Else_WithSuccess_IsNotCalled()
+        {
+            var hasBeenCalled = false;
+            Succeed().Else(_ =>
+            {
+                hasBeenCalled = true;
+                return Succeed();
+            });
+
+            hasBeenCalled.Should().BeFalse();
+        }
+
+        [Test]
+        public void Else_WithFailure_IsCalled()
+        {
+            var hasBeenCalled = false;
+            Fail<TestError>().Else(_ =>
+            {
+                hasBeenCalled = true;
+                return Succeed();
+            });
+
+            hasBeenCalled.Should().BeTrue();
+        }
+
+        [Test, Combinatorial]
+        public void Else_WithFailure_ShouldReturnElseResult([Values(true, false)] bool shouldFail)
+        {
+            var result = Fail<TestError>().Else(_ => shouldFail ? Fail<TestError2>() : Succeed());
+
+            if (shouldFail)
+                result.Should().BeAssignableTo<Failure<TestError2>>();
+            else
+                result.Should().BeAssignableTo<Success>();
+        }
+
+        [Test, Combinatorial]
+        public async Task Else_WithValuelessResults_ShouldReturnValuelessResult([Values(true, false)] bool thisIsAsync, [Values(true, false)] bool elseIsAsync)
+        {
+            var result = (thisIsAsync, elseIsAsync) switch
+            {
+                (false, false) => Fail<TestError>().Else(_ => Succeed()),
+                (true, false) => await Fail<TestError>().ToTask().Else(_ => Succeed()),
+                (false, true) => await Fail<TestError>().Else(_ => Succeed().ToTask()),
+                (true, true) => await Fail<TestError>().ToTask().Else(_ => Succeed().ToTask())
+            };
+            result.Should().BeAssignableTo<Success>();
+        }
+
+        [Test, Combinatorial]
+        public async Task Else_WithThisValue_WithValuelessElse_OnThisFailure_ShouldReturnNoneOption([Values(true, false)] bool thisIsAsync, [Values(true, false)] bool elseIsAsync)
+        {
+            var result = (thisIsAsync, elseIsAsync) switch
+            {
+                (false, false) => Result<int>.Fail<TestError>().Else(_ => Succeed()),
+                (true, false) => await Result<int>.Fail<TestError>().ToTask().Else(_ => Succeed()),
+                (false, true) => await Result<int>.Fail<TestError>().Else(_ => Succeed().ToTask()),
+                (true, true) => await Result<int>.Fail<TestError>().ToTask().Else(_ => Succeed().ToTask())
+            };
+            result.Should().BeAssignableTo<Success<Option<int>>>()
+                .Which.Value.Should().BeAssignableTo<None<int>>();
+        }
+
+        [Test, Combinatorial]
+        public async Task Else_WithThisValue_WithValuelessElse_OnThisSuccess_ShouldReturnSomeOption([Values(true, false)] bool thisIsAsync, [Values(true, false)] bool elseIsAsync)
+        {
+            var result = (thisIsAsync, elseIsAsync) switch
+            {
+                (false, false) => Succeed(123).Else(_ => Succeed()),
+                (true, false) => await Succeed(123).ToTask().Else(_ => Succeed()),
+                (false, true) => await Succeed(123).Else(_ => Succeed().ToTask()),
+                (true, true) => await Succeed(123).ToTask().Else(_ => Succeed().ToTask())
+            };
+            result.Should().BeAssignableTo<Success<Option<int>>>()
+                .Which.Value.Should().BeAssignableTo<Some<int>>()
+                .Which.Value.Should().Be(123);
+        }
+
+        [Test, Combinatorial]
+        public async Task Else_WithValuelessThis_WithElseValue_OnThisFailure_ShouldReturnSomeOption([Values(true, false)] bool thisIsAsync, [Values(true, false)] bool elseIsAsync)
+        {
+            var result = (thisIsAsync, elseIsAsync) switch
+            {
+                (false, false) => Fail<TestError>().Else(_ => Succeed(123)),
+                (true, false) => await Fail<TestError>().ToTask().Else(_ => Succeed(123)),
+                (false, true) => await Fail<TestError>().Else(_ => Succeed(123).ToTask()),
+                (true, true) => await Fail<TestError>().ToTask().Else(_ => Succeed(123).ToTask())
+            };
+            result.Should().BeAssignableTo<Success<Option<int>>>()
+                .Which.Value.Should().BeAssignableTo<Some<int>>()
+                .Which.Value.Should().Be(123);
+        }
+
+        [Test, Combinatorial]
+        public async Task Else_WithValuelessThis_WithElseValue_OnThisSuccess_ShouldReturnNoneOption([Values(true, false)] bool thisIsAsync, [Values(true, false)] bool elseIsAsync)
+        {
+            var result = (thisIsAsync, elseIsAsync) switch
+            {
+                (false, false) => Succeed().Else(_ => Succeed(123)),
+                (true, false) => await Succeed().ToTask().Else(_ => Succeed(123)),
+                (false, true) => await Succeed().Else(_ => Succeed(123).ToTask()),
+                (true, true) => await Succeed().ToTask().Else(_ => Succeed(123).ToTask())
+            };
+            result.Should().BeAssignableTo<Success<Option<int>>>()
+                .Which.Value.Should().BeAssignableTo<None<int>>();
+        }
+
+        [Test, Combinatorial]
+        public async Task Else_WithMatchingValueTypes_OnThisFailure_ShouldReturnValueFromElse([Values(true, false)] bool thisIsAsync, [Values(true, false)] bool elseIsAsync)
+        {
+            var result = (thisIsAsync, elseIsAsync) switch
+            {
+                (false, false) => Result<int>.Fail<TestError>().Else<int>(_ => Succeed(123)),
+                (true, false) => await Result<int>.Fail<TestError>().ToTask().Else<int>(_ => Succeed(123)),
+                (false, true) => await Result<int>.Fail<TestError>().Else<int>(_ => Succeed(123).ToTask()),
+                (true, true) => await Result<int>.Fail<TestError>().ToTask().Else<int>(_ => Succeed(123).ToTask())
+            };
+            result.Should().BeAssignableTo<Success<int>>()
+                .Which.Value.Should().Be(123);
+        }
+
+        [Test, Combinatorial]
+        public async Task Else_WithMatchingValueTypes_OnThisSuccess_ShouldReturnValueFromThis([Values(true, false)] bool thisIsAsync, [Values(true, false)] bool elseIsAsync)
+        {
+            var result = (thisIsAsync, elseIsAsync) switch
+            {
+                (false, false) => Succeed(123).Else<int>(_ => Succeed(321)),
+                (true, false) => await Succeed(123).ToTask().Else<int>(_ => Succeed(321)),
+                (false, true) => await Succeed(123).Else<int>(_ => Succeed(321).ToTask()),
+                (true, true) => await Succeed(123).ToTask().Else<int>(_ => Succeed(321).ToTask())
+            };
+            result.Should().BeAssignableTo<Success<int>>()
+                .Which.Value.Should().Be(123);
+        }
+
+        [Test, Combinatorial]
+        public async Task Else_WithDifferingValueTypes_OnThisFailure_ShouldReturnUnionWithValueFromElse([Values(true, false)] bool thisIsAsync, [Values(true, false)] bool elseIsAsync)
+        {
+            var result = (thisIsAsync, elseIsAsync) switch
+            {
+                (false, false) => Result<int>.Fail<TestError>().Else(_ => Succeed("Hello")),
+                (true, false) => await Result<int>.Fail<TestError>().ToTask().Else(_ => Succeed("Hello")),
+                (false, true) => await Result<int>.Fail<TestError>().Else(_ => Succeed("Hello").ToTask()),
+                (true, true) => await Result<int>.Fail<TestError>().ToTask().Else(_ => Succeed("Hello").ToTask())
+            };
+            result.Should().BeAssignableTo<Success<Union<int, string>>>()
+                .Which.Value.Is<string>(out var value).Should().BeTrue();
+
+            value.Should().Be("Hello");
+        }
+
+        [Test]
+        public async Task Else_WithDifferingValueTypes_OnThisSuccess_ShouldReturnUnionWithValueFromThis([Values(true, false)] bool thisIsAsync, [Values(true, false)] bool elseIsAsync)
+        {
+            var result = (thisIsAsync, elseIsAsync) switch
+            {
+                (false, false) => Succeed(123).Else(_ => Succeed("Hello")),
+                (true, false) => await Succeed(123).ToTask().Else(_ => Succeed("Hello")),
+                (false, true) => await Succeed(123).Else(_ => Succeed("Hello").ToTask()),
+                (true, true) => await Succeed(123).ToTask().Else(_ => Succeed("Hello").ToTask())
+            };
+            result.Should().BeAssignableTo<Success<Union<int, string>>>()
+                .Which.Value.Is<int>(out var value).Should().BeTrue();
+
+            value.Should().Be(123);
         }
 
         private static Func<Result> TestMethod(bool shouldSucceed) => () =>
@@ -623,6 +791,9 @@
             public int Data { get; set; }
             public string Message { get; set; }
         }
-    }
 
+        private class TestError2 : ResultError
+        {
+        }
+    }
 }

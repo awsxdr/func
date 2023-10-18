@@ -91,11 +91,7 @@ public class Example
 }
 ```
 
-#### Currying and partial application
-
-Full currying and partial application support is being worked on but is currently not ready.
-
-### Options
+### Option
 
 Options represent a way of marking a value as optional. Optional items offer benefits over nullable items because they enforce checking for a value and thus remove the possibility of ending up with the dreaded `NullReferenceException`s.
 
@@ -156,11 +152,11 @@ public class Example
 }
 ```
 
-### Railway-oriented programming (Result)
+### Result
 
-Func supports railway-oriented programming (ROP). Functions which return a `Result` object can be chained together with calls to `Then`. If any method in the chain fails then the chain stops executing and a fail is returned. The concept is similar to Javascript's promises or Rust's `Result` type.
+Func supports result types which can be returned from functions to indicate success or failure. Functions which return a `Result` object can be chained together with calls to `Then`, `And`, or `Else`. If any method in the chain fails then the chain stops executing and a fail is returned. The concept is similar to Javascript's promises or Rust's `Result` type.
 
-The aim of ROP is to prevent the use of exceptions for program flow. Methods can fail on non-exceptional errors to avoid continuing without the overhead of throwing an exception.
+The aim of results is to prevent the use of exceptions for program flow. Methods can fail on non-exceptional errors to avoid continuing without the overhead of throwing an exception.
 
 ```csharp
 using System;
@@ -208,3 +204,47 @@ public class UserNotFoundError : ResultError { }
 Note here that the call to `Fail` requires the result types to be passed. This is because the types can't be inferred.
 
 Also note that the error type is specified in the lambda for `OnError`. If not specified here then the method would require both the error type and result type specified in angular brackets.
+
+### Union
+
+A `Union` is used to represent a value which can be one of several types. To determine what type is held by the union, either use the `Is<>` method, or use the `is` keyword on the `Value` property.
+
+This has a lot of similarities to `Option` but constrains the types which are stored.
+
+The following example is to show how unions are used. However, it would likely be better to use overloaded methods for this specific case.
+
+```csharp
+using static Func.Result;
+
+public class Example
+{
+    public static Result<string> GetDescription(Union<int, double, string> value) =>
+        (value.Value switch
+        {
+            Some<int> x => Succeed(x.Value),
+            Some<double> x => Succeed((int)x.Value),
+            Some<string> x =>
+                int.TryParse(x.Value, out var i)
+                    ? Succeed(i)
+                    : Result<int>.Fail<FormatError>(),
+            _ => throw new Exception("Unexpected type")
+        })
+        .ThenMap(x =>
+            x > 10 ? "Huge"
+            : x > 5 ? "Big"
+            : x< 1 ? "Tiny"
+            : x< 5 ? "Small"
+            : "Average"
+        );
+
+    public void Test()
+    {
+        GetDescription(11);      // Success - "Huge"
+        GetDescription(8.42);    // Success - "Big"
+        GetDescription("2");     // Success - "Small"
+        GetDescription("Hello"); // Failure
+    }
+
+    public class FormatError : ResultError {}
+}
+```

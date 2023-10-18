@@ -1,0 +1,35 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ output extension=".cs" #>
+<# const int ArgumentLimit = 6; #>
+namespace Func
+{
+    public static class TupleExtensionMethods
+    {
+        public static (T1, T2, T3) Combine<T1, T2, T3>(this (T1, T2) @this, T3 other) => (@this.Item1, @this.Item2, other);
+        public static (T1, T2, T3) Combine<T1, T2, T3>(this T1 @this, (T2, T3) other) => (@this, other.Item1, other.Item2);
+<# for(var leftArgCount = 2; leftArgCount <= ArgumentLimit; ++leftArgCount) { #>
+<# for(var rightArgCount = 2; rightArgCount <= ArgumentLimit; ++rightArgCount) { #>
+        public static (<# WriteValueTypes(leftArgCount + rightArgCount); #>) Combine<<# WriteValueTypes(leftArgCount + rightArgCount); #>>(this (<# WriteValueTypes(leftArgCount); #>) @this, (<# WriteValueTypes(rightArgCount, leftArgCount); #>) other) =>
+            (<# WriteItemAccess("@this", leftArgCount); #>, <# WriteItemAccess("other", rightArgCount); #>);
+<# } } #>
+        
+        }
+}
+<#+
+    void WriteValueTypes(int count, int start = 0) 
+    {
+        for (var i = 1; i <= count; ++i)
+        {
+            #>T<#= i + start #><#+ if(i < count) { #>, <#+ }
+        }
+    }
+
+    void WriteItemAccess(string containerName, int count)
+    {
+        for (var i = 1; i <= count; ++i)
+        {
+            #><#= containerName #>.Item<#= i #><#+ if(i < count) { #>, <#+ }
+        }
+    }
+#>
