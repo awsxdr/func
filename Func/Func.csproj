@@ -42,6 +42,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Currying.cs</LastGenOutput>
     </None>
+    <None Update="Results\ResultChainingExtensionMethods.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ResultChainingExtensionMethods.cs</LastGenOutput>
+    </None>
     <None Update="Results\ResultMapExtensionMethods.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ResultMapExtensionMethods.cs</LastGenOutput>
@@ -78,6 +82,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MapExtensionMethods.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Results\ResultChainingExtensionMethods.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResultChainingExtensionMethods.tt</DependentUpon>
     </Compile>
     <Compile Update="TeeExtensionMethods.cs">
       <DesignTime>True</DesignTime>

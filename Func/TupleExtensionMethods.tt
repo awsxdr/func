@@ -6,15 +6,21 @@ namespace Func
 {
     public static class TupleExtensionMethods
     {
-        public static (T1, T2, T3) Combine<T1, T2, T3>(this (T1, T2) @this, T3 other) => (@this.Item1, @this.Item2, other);
-        public static (T1, T2, T3) Combine<T1, T2, T3>(this T1 @this, (T2, T3) other) => (@this, other.Item1, other.Item2);
+<# for(var leftArgCount = 2; leftArgCount <= ArgumentLimit; ++leftArgCount) { #>
+        public static (<# WriteValueTypes(leftArgCount); #>, T<#= leftArgCount + 1 #>) Combine<<# WriteValueTypes(leftArgCount + 1); #>>(this (<# WriteValueTypes(leftArgCount); #>) @this, T<#= leftArgCount + 1 #> other) =>
+            (<# WriteItemAccess("@this", leftArgCount); #>, other);
+<# } #>
+<# for(var rightArgCount = 2; rightArgCount <= ArgumentLimit; ++rightArgCount) { #>
+        public static (<# WriteValueTypes(rightArgCount); #>, T<#= rightArgCount + 1 #>) Combine<<# WriteValueTypes(rightArgCount + 1); #>>(this T1 @this, (<# WriteValueTypes(rightArgCount, 1); #>) other) =>
+            (@this, <# WriteItemAccess("other", rightArgCount); #>);
+<# } #>
 <# for(var leftArgCount = 2; leftArgCount <= ArgumentLimit; ++leftArgCount) { #>
 <# for(var rightArgCount = 2; rightArgCount <= ArgumentLimit; ++rightArgCount) { #>
         public static (<# WriteValueTypes(leftArgCount + rightArgCount); #>) Combine<<# WriteValueTypes(leftArgCount + rightArgCount); #>>(this (<# WriteValueTypes(leftArgCount); #>) @this, (<# WriteValueTypes(rightArgCount, leftArgCount); #>) other) =>
             (<# WriteItemAccess("@this", leftArgCount); #>, <# WriteItemAccess("other", rightArgCount); #>);
 <# } } #>
         
-        }
+    }
 }
 <#+
     void WriteValueTypes(int count, int start = 0) 

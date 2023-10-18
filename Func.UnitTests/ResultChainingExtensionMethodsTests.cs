@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
-
-namespace Func.UnitTests
+﻿namespace Func.UnitTests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using FluentAssertions;
     using NUnit.Framework;
 
-    using static Func.Result;
+    using static Result;
 
     [TestFixture]
     public class ResultChainingExtensionMethodsTests
     {
-        private static Random _random = new Random();
+        private static readonly Random Random = new Random();
 
         [TestCaseSource(nameof(ValuelessTestCases))]
         public void ValuelessResults_ShouldCorrectlyTransferResult(Result first, Result second, Type expectedResultType)
@@ -26,7 +24,7 @@ namespace Func.UnitTests
         [Test]
         public void FirstItemWithValue_WithSecondItemWithoutValue_ShouldReturnExpectedValueOnSuccess()
         {
-            var value = _random.Next();
+            var value = Random.Next();
 
             var result = Succeed(value).And(Succeed());
 
@@ -37,7 +35,7 @@ namespace Func.UnitTests
         [Test]
         public void FirstItemWithoutValue_WithSecondItemWithValue_ShouldReturnExpectedValueOnSuccess()
         {
-            var value = _random.Next();
+            var value = Random.Next();
 
             var result = Succeed().And(Succeed(value));
 
@@ -48,7 +46,7 @@ namespace Func.UnitTests
         [Test]
         public void BothItemsWithValue_ShouldReturnsTupleOfValues()
         {
-            var values = new[] {_random.Next(), _random.Next()};
+            var values = new[] {Random.Next(), Random.Next()};
 
             var result = Succeed(values[0]).And(Succeed(values[1]));
 
@@ -59,7 +57,7 @@ namespace Func.UnitTests
         [Test]
         public void FirstItemWithTupleValue_WithSecondItemWithSingleValue_ShouldReturnCombinedTuple()
         {
-            var values = Enumerable.Range(0, 3).Select(_ => _random.Next()).ToArray();
+            var values = Enumerable.Range(0, 3).Select(_ => Random.Next()).ToArray();
 
             var result = Succeed((values[0], values[1])).And(Succeed(values[2]));
             
@@ -70,7 +68,7 @@ namespace Func.UnitTests
         [Test]
         public void FirstItemWithSingleValue_WithSecondItemWithTupleValue_ShouldReturnCombinedTuple()
         {
-            var values = Enumerable.Range(0, 3).Select(_ => _random.Next()).ToArray();
+            var values = Enumerable.Range(0, 3).Select(_ => Random.Next()).ToArray();
 
             var result = Succeed(values[0]).And(Succeed((values[1], values[2])));
 
@@ -81,7 +79,7 @@ namespace Func.UnitTests
         [Test]
         public void BothWithTupleValues_ShouldReturnCombinedTuple()
         {
-            var values = Enumerable.Range(0, 4).Select(_ => _random.Next()).ToArray();
+            var values = Enumerable.Range(0, 4).Select(_ => Random.Next()).ToArray();
 
             var result = Succeed((values[0], values[1])).And(Succeed((values[2], values[3])));
 

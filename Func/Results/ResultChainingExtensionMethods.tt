@@ -1,0 +1,49 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ output extension=".cs" #>
+<# const int ArgumentLimit = 6; #>
+#if NETSTANDARD2_1
+using static Func.Result;
+#else
+using static Func.ResultHelper;
+#endif
+
+
+namespace Func
+{
+    public static class ResultChainingExtensionMethods
+    {
+        public static Result And(this Result @this, Result and) =>
+            @this.Then(() => and);
+
+        public static Result<TAnd> And<TAnd>(this Result @this, Result<TAnd> and) =>
+            @this.Then(() => and);
+
+        public static Result<TThis> And<TThis>(this Result<TThis> @this, Result and) =>
+            @this.Then(value => and.Then(() => Succeed(value)));
+
+<# for (var thisArgCount = 1; thisArgCount <= ArgumentLimit; ++thisArgCount) { #>
+<# for (var andArgCount = 1; andArgCount <= ArgumentLimit; ++andArgCount) { #>
+        public static Result<(<# WriteTypes("TThis", thisArgCount); #>, <# WriteTypes("TAnd", andArgCount); #>)> And<<# WriteTypes("TThis", thisArgCount); #>, <# WriteTypes("TAnd", andArgCount); #>>(this Result<<# if(thisArgCount > 1) { #>(<# } #><# WriteTypes("TThis", thisArgCount); #><# if(thisArgCount > 1) { #>)<# } #>> @this, Result<<# if(andArgCount > 1) { #>(<# } #><# WriteTypes("TAnd", andArgCount); #><# if(andArgCount > 1) { #>)<# } #>> and) =>
+            @this.Then(thisValue => and.Then(andValue => Succeed(<# if (thisArgCount + andArgCount > 2) { #>thisValue.Combine(andValue)<# } else { #>(thisValue, andValue)<# } #>)));
+
+<# } } #>
+    }
+}
+<#+
+void WriteTypes(string typeName, int count, int start = 0) 
+{
+    for (var i = 1; i <= count; ++i)
+    {
+#><#= typeName #><#= i + start #><#+ if(i < count) { #>, <#+ }
+    }
+}
+
+void WriteItemAccess(string containerName, int count)
+{
+    for (var i = 1; i <= count; ++i)
+    {
+#><#= containerName #>.Item<#= i #><#+ if(i < count) { #>, <#+ }
+    }
+}
+#>

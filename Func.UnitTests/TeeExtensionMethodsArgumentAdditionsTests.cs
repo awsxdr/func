@@ -1,4 +1,11 @@
-﻿namespace Func.UnitTests
+﻿
+
+
+
+
+
+
+namespace Func.UnitTests
 {
     using FluentAssertions;
     using NUnit.Framework;
@@ -7,6 +14,7 @@
     [TestFixture]
     public partial class TeeExtensionMethodsTests
     {
+
         [Test]
         public void Tee_Curries_With2ArgumentsInAction()
         {
@@ -122,6 +130,7 @@
 
             result.Should().Be("1, 2");
         }
+
 
         [Test]
         public void Tee_Curries_With3ArgumentsInAction()
@@ -239,6 +248,7 @@
             result.Should().Be("1, 2, 3");
         }
 
+
         [Test]
         public void Tee_Curries_With4ArgumentsInAction()
         {
@@ -354,6 +364,7 @@
 
             result.Should().Be("1, 2, 3, 4");
         }
+
 
         [Test]
         public void Tee_Curries_With5ArgumentsInAction()
@@ -471,6 +482,7 @@
             result.Should().Be("1, 2, 3, 4, 5");
         }
 
+
         [Test]
         public void Tee_Curries_With6ArgumentsInAction()
         {
@@ -586,6 +598,7 @@
 
             result.Should().Be("1, 2, 3, 4, 5, 6");
         }
+
 
     }
 }

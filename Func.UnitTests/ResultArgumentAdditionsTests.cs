@@ -1,4 +1,11 @@
-﻿namespace Func.UnitTests
+﻿
+
+
+
+
+
+
+namespace Func.UnitTests
 {
     using FluentAssertions;
     using NUnit.Framework;
@@ -8,6 +15,7 @@
     [TestFixture]
     public class ResultArgumentAdditionsTests
     {
+
         [Test]
         public void Then_With1Arguments_ShouldReturnExpectedResult()
         {
@@ -119,6 +127,7 @@
             var result = await Succeed(2).ToTask().Then((int arg1, int arg2) => Succeed().ToTask(), 1);
             (result is Success).Should().BeTrue();
         }
+
 
         [Test]
         public void Then_With2Arguments_ShouldReturnExpectedResult()
@@ -232,6 +241,7 @@
             (result is Success).Should().BeTrue();
         }
 
+
         [Test]
         public void Then_With3Arguments_ShouldReturnExpectedResult()
         {
@@ -343,6 +353,7 @@
             var result = await Succeed(4).ToTask().Then((int arg1, int arg2, int arg3, int arg4) => Succeed().ToTask(), 1, 2, 3);
             (result is Success).Should().BeTrue();
         }
+
 
         [Test]
         public void Then_With4Arguments_ShouldReturnExpectedResult()
@@ -456,6 +467,7 @@
             (result is Success).Should().BeTrue();
         }
 
+
         [Test]
         public void Then_With5Arguments_ShouldReturnExpectedResult()
         {
@@ -568,6 +580,7 @@
             (result is Success).Should().BeTrue();
         }
 
+
         [Test]
         public void Then_With6Arguments_ShouldReturnExpectedResult()
         {
@@ -679,6 +692,7 @@
             var result = await Succeed(7).ToTask().Then((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7) => Succeed().ToTask(), 1, 2, 3, 4, 5, 6);
             (result is Success).Should().BeTrue();
         }
+
 
     }
 }
