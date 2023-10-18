@@ -1,6 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
-#pragma warning disable IDE1006 // Naming Styles
-namespace Func
+﻿namespace Func
 {
     using System;
     using System.Threading.Tasks;
@@ -44,4 +42,3 @@ namespace Func
         }
     }
 }
-#pragma warning restore IDE1006 // Naming Styles

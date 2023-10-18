@@ -1,0 +1,41 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ output extension=".cs" #>
+<# const int ArgumentLimit = 6; #>
+namespace Func
+{
+    public static class TupleExtensionMethods
+    {
+<# for(var leftArgCount = 2; leftArgCount <= ArgumentLimit; ++leftArgCount) { #>
+        public static (<# WriteValueTypes(leftArgCount); #>, T<#= leftArgCount + 1 #>) Combine<<# WriteValueTypes(leftArgCount + 1); #>>(this (<# WriteValueTypes(leftArgCount); #>) @this, T<#= leftArgCount + 1 #> other) =>
+            (<# WriteItemAccess("@this", leftArgCount); #>, other);
+<# } #>
+<# for(var rightArgCount = 2; rightArgCount <= ArgumentLimit; ++rightArgCount) { #>
+        public static (<# WriteValueTypes(rightArgCount); #>, T<#= rightArgCount + 1 #>) Combine<<# WriteValueTypes(rightArgCount + 1); #>>(this T1 @this, (<# WriteValueTypes(rightArgCount, 1); #>) other) =>
+            (@this, <# WriteItemAccess("other", rightArgCount); #>);
+<# } #>
+<# for(var leftArgCount = 2; leftArgCount <= ArgumentLimit; ++leftArgCount) { #>
+<# for(var rightArgCount = 2; rightArgCount <= ArgumentLimit; ++rightArgCount) { #>
+        public static (<# WriteValueTypes(leftArgCount + rightArgCount); #>) Combine<<# WriteValueTypes(leftArgCount + rightArgCount); #>>(this (<# WriteValueTypes(leftArgCount); #>) @this, (<# WriteValueTypes(rightArgCount, leftArgCount); #>) other) =>
+            (<# WriteItemAccess("@this", leftArgCount); #>, <# WriteItemAccess("other", rightArgCount); #>);
+<# } } #>
+        
+    }
+}
+<#+
+    void WriteValueTypes(int count, int start = 0) 
+    {
+        for (var i = 1; i <= count; ++i)
+        {
+            #>T<#= i + start #><#+ if(i < count) { #>, <#+ }
+        }
+    }
+
+    void WriteItemAccess(string containerName, int count)
+    {
+        for (var i = 1; i <= count; ++i)
+        {
+            #><#= containerName #>.Item<#= i #><#+ if(i < count) { #>, <#+ }
+        }
+    }
+#>

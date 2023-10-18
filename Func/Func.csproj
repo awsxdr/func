@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion>0.0.1.0</AssemblyVersion>
@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <None Remove="MapExtensionMethods.tt~RF14e8acba.TMP" />
+    <None Remove="TupleExtensionMethods.tt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,9 +34,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Currying.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Currying.cs</LastGenOutput>
+    </None>
+    <None Update="Results\ResultChainingExtensionMethods.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ResultChainingExtensionMethods.cs</LastGenOutput>
     </None>
     <None Update="Results\ResultMapExtensionMethods.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -49,6 +58,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapExtensionMethods.cs</LastGenOutput>
     </None>
+	<None Include="TupleExtensionMethods.tt">
+	  <Generator>TextTemplatingFileGenerator</Generator>
+	  <LastGenOutput>TupleExtensionMethods.cs</LastGenOutput>
+	</None>
     <None Update="Union.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Union.cs</LastGenOutput>
@@ -70,6 +83,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>MapExtensionMethods.tt</DependentUpon>
     </Compile>
+    <Compile Update="Results\ResultChainingExtensionMethods.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResultChainingExtensionMethods.tt</DependentUpon>
+    </Compile>
     <Compile Update="TeeExtensionMethods.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -89,6 +107,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ResultMapExtensionMethods.tt</DependentUpon>
+    </Compile>
+    <Compile Update="TupleExtensionMethods.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TupleExtensionMethods.tt</DependentUpon>
     </Compile>
     <Compile Update="Union.cs">
       <DesignTime>True</DesignTime>
