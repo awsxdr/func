@@ -50,6 +50,26 @@ namespace Func
 <# for(var j = 1; j <= i; ++j) { #>
         public static implicit operator Union<<# WriteGenericTypes(i); #>>(T<#= j #> value) => new Union<<# WriteGenericTypes(i); #>>(value);
 <# } #>
+
+        public override bool Equals(object obj) =>
+            (
+                obj is Union<<# WriteGenericTypes(i); #>> other
+                && (
+<# for(var j = 1; j <= i; ++j) { #>
+                    <# if(j > 1) { #>|| <# } #>Value is Some<T<#= j #>> thisValue<#= j #> && other.Value is Some<T<#= j #>> otherValue<#= j #> && thisValue<#= j #>.Equals(otherValue<#= j #>)
+<# } #>
+                )
+            ) || (
+                obj is Union otherUnion
+                && (
+<# for(var j = 1; j <= i; ++j) { #>
+                    <# if(j > 1) { #>|| <# } #>Value is Some<T<#= j #>> thisUnionValue<#= j #> && otherUnion.Is<T<#= j #>>(out var otherUnionValue<#= j #>) && thisUnionValue<#= j #>.Equals(otherUnionValue<#= j #>)
+<# } #>
+                )
+            );
+
+        public override int GetHashCode() => Value.GetHashCode();
+        public override string ToString() => Value.ToString();
     }
 <# } #>
 }
