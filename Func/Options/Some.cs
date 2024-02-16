@@ -38,6 +38,12 @@ namespace Func
         public static implicit operator SomeClass<TValue>(TValue value) => new SomeClass<TValue>(value);
 
         public override string ToString() => Value.ToString();
+
+        public override bool Equals(object obj) =>
+            (obj is Some<TValue> other && Equals(other))
+            || (obj is TValue otherValue && Equals(otherValue));
+
+        public override int GetHashCode() => Value.GetHashCode();
     }
 }
 #pragma warning restore IDE1006
